@@ -493,6 +493,20 @@ export async function handleComputerAgent(payload: ComputerPayload | null): Prom
       }
 
       const info = extractProgress(res.data);
+      // A paused agent is resumed automatically so the task actually finishes
+      // instead of silently sitting still until it looks dead.
+      if (info.status === "paused") {
+        const resumed = await callUpstream(
+          supabase,
+          {
+            path: `/tasks/${task.provider_task_id}`,
+            method: "PATCH",
+            body: { action: "resume_task" },
+          },
+          task.key_id,
+        );
+        info.status = resumed.ok ? "running" : "running";
+      }
       let liveUrl: string | null = null;
       const sessionId = String(res.data?.sessionId ?? res.data?.session_id ?? "");
       if (sessionId && !["done", "failed"].includes(info.status)) {
