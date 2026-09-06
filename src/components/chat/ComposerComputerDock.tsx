@@ -65,8 +65,7 @@ export function ComposerComputerDock({ className = "" }: { className?: string })
         </span>
 
         <MegsyStar
-          className={`h-4 w-4 shrink-0 ${view.active ? "motion-safe:animate-[spin_3s_linear_infinite]" : ""}`}
-          style={{ color: "var(--megsy-gold)" }}
+          className={`h-4 w-4 shrink-0 text-[var(--megsy-gold)] ${view.active ? "motion-safe:animate-[spin_3s_linear_infinite]" : ""}`}
         />
 
         <span className="min-w-0 flex-1 truncate text-[12.5px] font-medium text-foreground">
