@@ -150,8 +150,6 @@ export default function MobileAuthIntro({
             {t.title2}
           </span>
         </h1>
-        <div className="mt-6 h-px w-12 bg-foreground/20" />
-
 
         {/* Inline error notification */}
         <AnimatePresence>
