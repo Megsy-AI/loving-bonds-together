@@ -354,16 +354,6 @@ export default function MobileAuthIntro({
           )}
         </form>
 
-        {/* Terms */}
-        <p
-          className="mt-5 text-center"
-          style={{ fontSize: "11.5px", color: "rgba(255,255,255,.42)", letterSpacing: "0.1px" }}
-        >
-          {t.terms}{" "}
-          <a href="/terms" style={{ color: "rgba(255,255,255,.78)" }} className="underline underline-offset-2 decoration-foreground/25">
-            {t.termsLink}
-          </a>
-        </p>
       </div>
 
     </div>
