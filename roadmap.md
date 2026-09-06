@@ -34,3 +34,4 @@
 - [x] Replace welcome with three lightweight image-led screens and a golden Megsy Pro reveal
 - [x] Replace the first welcome visual and simplify all welcome copy in English
 - [x] Refresh welcome imagery, clarify service copy, and remove the gold Pro treatment
+- [x] Add three character-led welcome visuals, fuller service lists, and clear Pro benefits

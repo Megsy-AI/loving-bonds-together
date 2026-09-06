@@ -1,27 +1,29 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getPayRegionOrGuess, setPayRegion, type PayRegion } from "@/lib/payRegion";
 import { setUserLang } from "@/lib/authI18n";
-import welcomeEditorial from "@/assets/welcome-korean-editorial.jpg";
-import welcomeCreate from "@/assets/welcome-megsy-create.jpg";
-import welcomePro from "@/assets/welcome-pro-natural.jpg";
+import welcomeResearch from "@/assets/welcome-character-research.jpg";
+import welcomeCreate from "@/assets/welcome-character-create.jpg";
+import welcomePro from "@/assets/welcome-character-pro.jpg";
 import "@/styles/welcome-showcase.css";
 
 type Direction = "next" | "prev";
 
 const SCREENS = [
   {
-    image: welcomeEditorial,
-    title: "Research. Plan. Get it done.",
-    description: "Megsy searches the web, thinks through every step, and delivers ready-to-use answers and documents.",
-    alt: "Korean creative professional wearing silver glasses against a cloudy blue sky",
+    image: welcomeResearch,
+    title: "Your work, handled.",
+    description: "Move from a question to finished work with one intelligent assistant.",
+    services: ["Web research", "Deep analysis", "Documents", "Presentations", "Planning", "Megsy Computer"],
+    alt: "Korean woman wearing translucent glasses in a cool editorial portrait",
   },
   {
     image: welcomeCreate,
-    title: "Create in every format.",
-    description: "Make images, videos, presentations, websites, and reports with the best AI models in one place.",
-    alt: "A collection of creative work arranged around the Megsy star",
+    title: "Create anything.",
+    description: "Turn a simple idea into polished content in every format.",
+    services: ["AI images", "Videos", "Websites", "Reports", "Writing", "Code & apps"],
+    alt: "Korean woman in a futuristic black outfit posing in a pale blue studio",
   },
 ] as const;
 
@@ -107,13 +109,15 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
       >
         <div className="mb-3 flex justify-center gap-2" aria-label={`Step ${index + 1} of 3`}>
           {[0, 1, 2].map((step) => (
-            <button
+            <Button
               key={step}
               type="button"
+              variant="ghost"
+              data-plain
               aria-label={`Go to step ${step + 1}`}
               aria-current={step === index ? "step" : undefined}
               onClick={() => goTo(step)}
-              className="grid h-6 w-7 place-items-center"
+              className="grid h-6 w-7 min-w-0 place-items-center p-0 hover:bg-transparent"
             >
               <span
                 className={`block h-1.5 rounded-full transition-[width,background-color] duration-200 ${
@@ -122,7 +126,7 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
                     : "w-1.5 bg-[hsl(var(--welcome-ink)/.2)]"
                 }`}
               />
-            </button>
+            </Button>
           ))}
         </div>
 
@@ -133,7 +137,7 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
           onClick={continueFlow}
           className="h-14 w-full rounded-md bg-[hsl(var(--welcome-ink))] text-base font-bold !text-[hsl(var(--welcome-paper))] shadow-none hover:bg-[hsl(var(--welcome-ink)/.9)]"
         >
-          {isPro ? "Unlock Megsy Pro" : "Continue"}
+          {isPro ? "Start now" : "Continue"}
           {!isPro && <ArrowRight className="size-5" />}
         </Button>
 
@@ -173,8 +177,8 @@ function IntroScreen({
   eager: boolean;
 }) {
   return (
-    <div className="mx-auto flex h-full w-full max-w-md flex-col pb-36 sm:max-w-lg">
-      <div className="relative h-[56dvh] min-h-[330px] max-h-[570px] w-full overflow-hidden">
+    <div className="mx-auto flex h-full w-full max-w-md flex-col pb-40 sm:max-w-lg">
+      <div className="relative h-[43dvh] min-h-[292px] max-h-[440px] w-full shrink-0 overflow-hidden">
         <img
           src={screen.image}
           alt={screen.alt}
@@ -184,16 +188,26 @@ function IntroScreen({
           fetchPriority={eager ? "high" : "auto"}
           className="h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
-      <div className="relative z-10 px-7 pt-5 text-left">
-        <h2 className="max-w-[330px] text-[38px] font-extrabold leading-[1.03] text-[hsl(var(--welcome-ink))] sm:text-[42px]">
+      <div className="relative z-10 -mt-2 px-6 text-left">
+        <h2 className="max-w-[330px] text-[32px] font-extrabold leading-[1.04] text-[hsl(var(--welcome-ink))] sm:text-[38px]">
           {screen.title}
         </h2>
-        <p className="mt-4 max-w-[320px] text-[16px] font-medium leading-6 text-[hsl(var(--welcome-muted))]">
+        <p className="mt-2 max-w-[340px] text-[14px] font-medium leading-5 text-[hsl(var(--welcome-muted))]">
           {screen.description}
         </p>
+        <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5" aria-label="Included services">
+          {screen.services.map((service) => (
+            <div key={service} className="flex min-w-0 items-center gap-2 text-[13px] font-bold text-[hsl(var(--welcome-ink))]">
+              <span className="grid size-4 shrink-0 place-items-center rounded-full bg-[hsl(var(--welcome-ink)/.07)]">
+                <Check className="size-2.5" strokeWidth={2.5} />
+              </span>
+              <span className="truncate">{service}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -201,26 +215,34 @@ function IntroScreen({
 
 function ProScreen() {
   return (
-    <div className="relative mx-auto flex h-full w-full max-w-md flex-col pb-44 sm:max-w-lg">
-      <div className="relative h-[50dvh] min-h-[300px] max-h-[540px] w-full overflow-hidden">
+    <div className="relative mx-auto flex h-full w-full max-w-md flex-col pb-48 sm:max-w-lg">
+      <div className="relative h-[40dvh] min-h-[275px] max-h-[410px] w-full shrink-0 overflow-hidden">
         <img
           src={welcomePro}
-          alt="Megsy Pro creative tools"
+          alt="Korean woman in a white futuristic portrait for Megsy Pro"
           width={1024}
           height={1280}
           loading="eager"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
-      <div className="relative z-10 px-7 pt-5 text-left">
-        <h2 className="text-[38px] font-extrabold leading-[1.03] text-[hsl(var(--welcome-ink))] sm:text-[42px]">
-          Do more with Megsy Pro.
+      <div className="relative z-10 -mt-2 px-6 text-left">
+        <p className="text-[11px] font-extrabold uppercase text-[hsl(var(--welcome-muted))]">Megsy Pro</p>
+        <h2 className="mt-1 text-[32px] font-extrabold leading-[1.04] text-[hsl(var(--welcome-ink))] sm:text-[38px]">
+          More power. Fewer limits.
         </h2>
-        <p className="mt-4 max-w-[330px] text-[16px] font-medium leading-6 text-[hsl(var(--welcome-muted))]">
-          Use advanced AI models, Megsy Computer, longer tasks, and more creative generations with higher limits.
-        </p>
+        <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5" aria-label="Megsy Pro benefits">
+          {["Advanced AI models", "Higher usage limits", "More image & video", "Megsy Computer", "Longer tasks", "Priority access"].map((feature) => (
+            <div key={feature} className="flex min-w-0 items-center gap-2 text-[13px] font-bold text-[hsl(var(--welcome-ink))]">
+              <span className="grid size-4 shrink-0 place-items-center rounded-full bg-[hsl(var(--welcome-ink)/.07)]">
+                <Check className="size-2.5" strokeWidth={2.5} />
+              </span>
+              <span className="truncate">{feature}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
