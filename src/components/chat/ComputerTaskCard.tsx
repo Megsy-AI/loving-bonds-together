@@ -107,6 +107,7 @@ export default function ComputerTaskCard({ taskId }: Props) {
           steps={traceSteps}
           text={traceText}
           tool="browser"
+          running
           className="mb-0"
         />
       </div>
