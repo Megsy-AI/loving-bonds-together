@@ -4,9 +4,7 @@ import { AlertCircle, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { useBrandLogo } from "@/hooks/useBrandLogo";
 import { t as authT, useUserLang } from "@/lib/authI18n";
 
-// Self-hosted, compressed hero clip (663KB mp4 / 1MB webm instead of the old
-// 33MB 3328x2492 CDN file that never finished loading on mobile networks).
-const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v3.mp4";
+const AUTH_HERO_MP4 = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260330_153826_e9005cf7-a1c7-4c7d-886f-fea22d644a9c.mp4";
 const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v3-poster.jpg";
 interface Props {
   onGoogle: () => void;
