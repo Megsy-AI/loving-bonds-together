@@ -306,8 +306,11 @@ function normalizeStatus(raw: unknown): string {
   if (["finished", "completed", "success", "succeeded", "done"].includes(s)) return "done";
   if (["failed", "error", "canceled", "cancelled", "stopped"].includes(s)) return "failed";
   if (["pending", "queued", "created"].includes(s)) return "pending";
-  if (["started", "running", "in_progress"].includes(s)) return "running";
-  return s ? "failed" : "pending";
+  // A paused agent is still alive — it is waiting, not finished. Never treat it
+  // (or any status we do not recognise yet) as a failure, otherwise a live run
+  // gets killed mid-task and returns no result at all.
+  if (["paused", "pausing", "stopping", "waiting"].includes(s)) return "paused";
+  return s ? "running" : "pending";
 }
 
 /** Pulls step/file info out of a provider payload without leaking its shape. */
