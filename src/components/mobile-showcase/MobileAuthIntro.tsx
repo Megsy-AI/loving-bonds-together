@@ -6,8 +6,8 @@ import { t as authT, useUserLang } from "@/lib/authI18n";
 
 // Self-hosted, compressed hero clip (663KB mp4 / 1MB webm instead of the old
 // 33MB 3328x2492 CDN file that never finished loading on mobile networks).
-const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v2.mp4";
-const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v2-poster.jpg";
+const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v3.mp4";
+const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v3-poster.jpg";
 interface Props {
   onGoogle: () => void;
   onEmail: () => void;
