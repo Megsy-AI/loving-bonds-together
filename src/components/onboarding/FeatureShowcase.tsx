@@ -3,9 +3,9 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getPayRegionOrGuess, setPayRegion, type PayRegion } from "@/lib/payRegion";
 import { setUserLang } from "@/lib/authI18n";
-import welcomeResearch from "@/assets/welcome-character-research.jpg";
-import welcomeCreate from "@/assets/welcome-character-create.jpg";
-import welcomePro from "@/assets/welcome-character-pro.jpg";
+import welcomeResearch from "@/assets/welcome-character-research-v2.jpg";
+import welcomeCreate from "@/assets/welcome-character-create-v2.jpg";
+import welcomePro from "@/assets/welcome-character-pro-v2.jpg";
 import "@/styles/welcome-showcase.css";
 
 type Direction = "next" | "prev";
@@ -13,17 +13,15 @@ type Direction = "next" | "prev";
 const SCREENS = [
   {
     image: welcomeResearch,
-    title: "Your work, handled.",
-    description: "Move from a question to finished work with one intelligent assistant.",
-    services: ["Web research", "Deep analysis", "Documents", "Presentations", "Planning", "Megsy Computer"],
-    alt: "Korean woman wearing translucent glasses in a cool editorial portrait",
+    title: "Think bigger. Work smarter.",
+    description: "Research the web, analyze ideas, plan projects, and complete complex tasks with Megsy Computer.",
+    alt: "Korean fashion model wearing silver glasses against a blue cloud backdrop",
   },
   {
     image: welcomeCreate,
-    title: "Create anything.",
-    description: "Turn a simple idea into polished content in every format.",
-    services: ["AI images", "Videos", "Websites", "Reports", "Writing", "Code & apps"],
-    alt: "Korean woman in a futuristic black outfit posing in a pale blue studio",
+    title: "Create in every format.",
+    description: "Make images, videos, presentations, websites, reports, writing, code, and complete apps—all in one place.",
+    alt: "Korean fashion model photographed from above in an early-2000s editorial style",
   },
 ] as const;
 
@@ -177,8 +175,8 @@ function IntroScreen({
   eager: boolean;
 }) {
   return (
-    <div className="mx-auto flex h-full w-full max-w-md flex-col pb-40 sm:max-w-lg">
-      <div className="relative h-[43dvh] min-h-[292px] max-h-[440px] w-full shrink-0 overflow-hidden">
+    <div className="mx-auto flex h-full w-full max-w-md flex-col pb-36 sm:max-w-lg">
+      <div className="relative h-[56dvh] min-h-[330px] max-h-[570px] w-full overflow-hidden">
         <img
           src={screen.image}
           alt={screen.alt}
@@ -191,23 +189,13 @@ function IntroScreen({
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
-      <div className="relative z-10 -mt-2 px-6 text-left">
-        <h2 className="max-w-[330px] text-[32px] font-extrabold leading-[1.04] text-[hsl(var(--welcome-ink))] sm:text-[38px]">
+      <div className="relative z-10 px-7 pt-5 text-left">
+        <h2 className="max-w-[330px] text-[38px] font-extrabold leading-[1.03] text-[hsl(var(--welcome-ink))] sm:text-[42px]">
           {screen.title}
         </h2>
-        <p className="mt-2 max-w-[340px] text-[14px] font-medium leading-5 text-[hsl(var(--welcome-muted))]">
+        <p className="mt-4 max-w-[330px] text-[16px] font-medium leading-6 text-[hsl(var(--welcome-muted))]">
           {screen.description}
         </p>
-        <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5" aria-label="Included services">
-          {screen.services.map((service) => (
-            <div key={service} className="flex min-w-0 items-center gap-2 text-[13px] font-bold text-[hsl(var(--welcome-ink))]">
-              <span className="grid size-4 shrink-0 place-items-center rounded-full bg-[hsl(var(--welcome-ink)/.07)]">
-                <Check className="size-2.5" strokeWidth={2.5} />
-              </span>
-              <span className="truncate">{service}</span>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
