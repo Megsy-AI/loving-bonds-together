@@ -322,19 +322,35 @@ function extractProgress(data: any): {
   events: { title: string; detail?: string; url?: string }[];
 } {
   const status = normalizeStatus(data?.status);
-  const rawEvents: any[] = Array.isArray(data?.steps) ? data.steps : [];
+  // Browser Use has shipped both camelCase and snake_case step payloads, and
+  // sometimes nests them under `task`/`output`. Accept every shape so the
+  // thinking trace is never empty while the agent is clearly working.
+  const rawEvents: any[] = Array.isArray(data?.steps)
+    ? data.steps
+    : Array.isArray(data?.task?.steps)
+      ? data.task.steps
+      : Array.isArray(data?.history)
+        ? data.history
+        : [];
+  console.log(
+    `browser-use payload keys=${Object.keys(data ?? {}).join(",")} steps=${rawEvents.length}`,
+  );
   const events = rawEvents
     .map((e) => ({
-      title: String(e?.nextGoal || e?.evaluationPreviousGoal || `Step ${e?.number ?? ""}`).slice(0, 160),
+      title: String(
+        e?.nextGoal || e?.next_goal || e?.evaluationPreviousGoal || e?.evaluation_previous_goal ||
+          e?.goal || e?.thought || `Step ${e?.number ?? e?.step ?? ""}`,
+      ).slice(0, 160),
       detail:
         typeof e?.memory === "string"
           ? e.memory.slice(0, 800)
           : Array.isArray(e?.actions)
-            ? e.actions.join(", ").slice(0, 800)
+            ? e.actions.map((a: unknown) => (typeof a === "string" ? a : JSON.stringify(a))).join(", ").slice(0, 800)
             : undefined,
       url: typeof e?.url === "string" ? e.url : undefined,
     }))
     .slice(-50);
+
 
   const rawFiles: any[] = Array.isArray(data?.outputFiles) ? data.outputFiles : [];
   const files = rawFiles
@@ -385,11 +401,14 @@ export async function handleComputerAgent(payload: ComputerPayload | null): Prom
       // starting from the configured model.
       const llmCandidates = [
         Deno.env.get("BROWSER_USE_LLM")?.trim() || undefined,
-        "browser-use-llm",
+        // Free-plan model first: the premium ones 403 on a free account and
+        // every rejected attempt just delays the start of the run.
         "bu-2-0-mini-preview",
+        "browser-use-llm",
         "gemini-2.5-flash",
         undefined,
       ];
+
 
       let res = await callUpstream(supabase, {
         path: "/tasks",
