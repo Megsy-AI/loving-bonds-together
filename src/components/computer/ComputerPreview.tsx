@@ -186,6 +186,7 @@ export function ComputerPreview({
           steps={traceSteps}
           text={traceText}
           tool={activeTool}
+          running={!!active && !!activeTool}
           className="mb-0"
         />
       )}
