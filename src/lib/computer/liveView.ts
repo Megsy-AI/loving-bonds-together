@@ -37,6 +37,12 @@ export function setComputerLiveView(view: ComputerLiveView) {
   emit();
 }
 
+// Dev-only handle so the composer dock can be reviewed visually without a
+// real cloud run. Never used by app code.
+if (import.meta.env.DEV) {
+  (window as unknown as Record<string, unknown>).__megsySetComputerLiveView = setComputerLiveView;
+}
+
 export function clearComputerLiveView(id: string) {
   if (!current || current.id !== id) return;
   current = null;
