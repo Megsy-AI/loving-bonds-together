@@ -149,7 +149,6 @@ export default function MobileAuthExtras(p: Props) {
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         style={{ objectPosition: "center 48%", zIndex: 0 }}
       >
-        <source src={AUTH_HERO_WEBM} type="video/webm" />
         <source src={AUTH_HERO_MP4} type="video/mp4" />
       </video>
 

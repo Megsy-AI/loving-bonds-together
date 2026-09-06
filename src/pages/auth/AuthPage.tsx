@@ -1331,7 +1331,6 @@ const AuthPage = () => {
             onLoadedData={() => setVideoLoaded(true)}
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src={AUTH_HERO_WEBM} type="video/webm" />
             <source src={AUTH_HERO_MP4} type="video/mp4" />
           </video>
           )}
