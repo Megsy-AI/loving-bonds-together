@@ -185,20 +185,28 @@ const ThinkingTrace = ({
 
         {(open || active) && (
           <ol className="mt-4 flex min-w-0 flex-col gap-5 border-s border-primary/25 ps-5">
-            {stepLines.map((line, i) => (
-              <li
-                key={`t-${i}-${line.slice(0, 24)}`}
+            {stepLines.map((line, i) => {
+              const isCurrent = !!active && i === stepLines.length - 1;
+              const showTool = isCurrent && !!running && !!tool;
+              return (
+                <li
+                  key={`t-${i}-${line.slice(0, 24)}`}
                   className="flex min-w-0 items-start gap-3 text-[12.5px] leading-relaxed text-muted-foreground"
-              >
-                <span
-                  aria-hidden
-                   className={`-ms-[27px] mt-0.5 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full border bg-background ${active && i === stepLines.length - 1 ? "border-primary/70 text-primary shadow-[0_0_14px_hsl(var(--primary)/0.35)]" : "border-border/70 text-muted-foreground"}`}
                 >
-                   <ToolIcon name={iconForLine(line, tool)} size={11} />
-                </span>
-                <span className="min-w-0 flex-1 break-words">{line}</span>
-              </li>
-            ))}
+                  <span
+                    aria-hidden
+                    className={`-ms-[27px] mt-0.5 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full border bg-background ${isCurrent ? "border-primary/70 text-primary" : "border-border/70 text-muted-foreground"}`}
+                  >
+                    {showTool ? (
+                      <ToolIcon name={tool as string} size={11} />
+                    ) : (
+                      <span className={`h-[5px] w-[5px] rounded-full ${isCurrent ? "bg-primary" : "bg-border"}`} />
+                    )}
+                  </span>
+                  <span className="min-w-0 flex-1 break-words">{line}</span>
+                </li>
+              );
+            })}
             {stepLines.length === 0 && (
               <li className="text-[12.5px] text-muted-foreground/80">
                 {isAr ? "لا توجد خطوات بعد…" : "No steps yet…"}
