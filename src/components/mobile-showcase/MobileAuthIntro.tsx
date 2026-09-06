@@ -151,17 +151,6 @@ export default function MobileAuthIntro({
           </span>
         </h1>
 
-        {/* Subtitle */}
-        <p
-          className="mt-4 text-center whitespace-pre-line text-foreground"
-          style={{
-            fontFamily: 'Inter, sans-serif',
-            fontSize: "14px",
-            lineHeight: "22px",
-          }}
-        >
-          {t.subtitle}
-        </p>
 
         {/* Inline error notification */}
         <AnimatePresence>
