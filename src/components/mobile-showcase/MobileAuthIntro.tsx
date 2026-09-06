@@ -67,9 +67,9 @@ export default function MobileAuthIntro({
         forgot: "Forgot password?",
       }
     : {
-        title1: "The AI stack for",
-        title2: "everything you create",
-        subtitle: "Chat, images, video, slides\nand full projects in one place",
+        title1: "One place to",
+        title2: "make anything",
+        subtitle: "Chat, images, video and full projects.\nStart in seconds.",
         google: "Continue with Google",
         email: "Continue with email",
         telegram: "Continue with Telegram",
