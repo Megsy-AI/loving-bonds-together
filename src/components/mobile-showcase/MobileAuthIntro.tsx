@@ -54,7 +54,6 @@ export default function MobileAuthIntro({
     ? {
         title1: "One place to",
         title2: "make anything",
-        subtitle: "Chat, images, video and full projects.\nStart in seconds.",
         google: "Continue with Google",
         email: "Continue with email",
         telegram: "Continue with Telegram",
@@ -69,7 +68,6 @@ export default function MobileAuthIntro({
     : {
         title1: "One place to",
         title2: "make anything",
-        subtitle: "Chat, images, video and full projects.\nStart in seconds.",
         google: "Continue with Google",
         email: "Continue with email",
         telegram: "Continue with Telegram",
@@ -151,17 +149,6 @@ export default function MobileAuthIntro({
           </span>
         </h1>
 
-        {/* Subtitle */}
-        <p
-          className="mt-4 text-center whitespace-pre-line text-foreground"
-          style={{
-            fontFamily: 'Inter, sans-serif',
-            fontSize: "14px",
-            lineHeight: "22px",
-          }}
-        >
-          {t.subtitle}
-        </p>
 
         {/* Inline error notification */}
         <AnimatePresence>
