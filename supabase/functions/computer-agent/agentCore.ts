@@ -505,7 +505,7 @@ export async function handleComputerAgent(payload: ComputerPayload | null): Prom
           },
           task.key_id,
         );
-        info.status = resumed.ok ? "running" : "running";
+        if (resumed.ok) info.status = "running";
       }
       let liveUrl: string | null = null;
       const sessionId = String(res.data?.sessionId ?? res.data?.session_id ?? "");
