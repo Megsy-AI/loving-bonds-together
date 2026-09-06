@@ -139,16 +139,6 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
           {!isPro && <ArrowRight className="size-5" />}
         </Button>
 
-        {isPro && (
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={finishWithoutOffer}
-            className="mt-1 h-11 w-full text-sm text-[hsl(var(--welcome-muted))] hover:bg-transparent hover:text-[hsl(var(--welcome-ink))]"
-          >
-            Not now
-          </Button>
-        )}
       </div>
 
       {index > 0 && !isPro && (
