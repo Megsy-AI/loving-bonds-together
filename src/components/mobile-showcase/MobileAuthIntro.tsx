@@ -132,22 +132,22 @@ export default function MobileAuthIntro({
       >
         {/* Title */}
         <h1
-          className="text-center text-foreground"
+          className="text-left text-foreground"
           style={{
-            fontFamily: '"ITC Garamond Std Narrow", "Playfair Display", Garamond, serif',
-            fontWeight: 300,
-            fontSize: "42px",
-            lineHeight: "1.08",
-            letterSpacing: "0.2px",
+            fontFamily: '"Inter", sans-serif',
+            fontWeight: 900,
+            fontSize: "52px",
+            lineHeight: "0.88",
+            letterSpacing: "-0.06em",
             textShadow: "0 1px 2px rgba(0,0,0,.4)",
           }}
         >
-          <span>{t.title1}</span>
-          <br />
-          <span style={{ fontStyle: "italic", fontWeight: 400 }}>
+          <span className="block">{t.title1}</span>
+          <span className="block text-foreground/55 mt-1">
             {t.title2}
           </span>
         </h1>
+        <div className="mt-6 h-px w-12 bg-foreground/20" />
 
 
         {/* Inline error notification */}
