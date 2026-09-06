@@ -5,7 +5,7 @@ import { getPayRegionOrGuess, setPayRegion, type PayRegion } from "@/lib/payRegi
 import { setUserLang } from "@/lib/authI18n";
 import welcomeResearch from "@/assets/welcome-character-research-v2.jpg";
 import welcomeCreate from "@/assets/welcome-character-create-v2.jpg";
-import welcomePro from "@/assets/welcome-character-pro-v2.jpg";
+import welcomePro from "@/assets/welcome-character-subscription-blank.jpg";
 import "@/styles/welcome-showcase.css";
 
 type Direction = "next" | "prev";
@@ -13,14 +13,14 @@ type Direction = "next" | "prev";
 const SCREENS = [
   {
     image: welcomeResearch,
-    title: "Think bigger. Work smarter.",
-    description: "Research the web, analyze ideas, plan projects, and complete complex tasks with Megsy Computer.",
+    title: "Ask once. Get it done.",
+    description: "Megsy researches, checks the facts, and turns your request into a finished report, plan, presentation, or completed task.",
     alt: "Korean fashion model wearing silver glasses against a blue cloud backdrop",
   },
   {
     image: welcomeCreate,
-    title: "Create in every format.",
-    description: "Make images, videos, presentations, websites, reports, writing, code, and complete apps—all in one place.",
+    title: "One idea. Every format.",
+    description: "Create images, videos, presentations, websites, and working apps—from the same conversation.",
     alt: "Korean fashion model photographed from above in an early-2000s editorial style",
   },
 ] as const;
@@ -135,7 +135,7 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
           onClick={continueFlow}
           className="h-14 w-full rounded-md bg-[hsl(var(--welcome-ink))] text-base font-bold !text-[hsl(var(--welcome-paper))] shadow-none hover:bg-[hsl(var(--welcome-ink)/.9)]"
         >
-          {isPro ? "Start now" : "Continue"}
+          {isPro ? "Start for $7" : "Continue"}
           {!isPro && <ArrowRight className="size-5" />}
         </Button>
 
@@ -207,22 +207,28 @@ function ProScreen() {
       <div className="relative h-[40dvh] min-h-[275px] max-h-[410px] w-full shrink-0 overflow-hidden">
         <img
           src={welcomePro}
-          alt="Korean woman in a white futuristic portrait for Megsy Pro"
+          alt="Korean woman holding a Megsy subscription card"
           width={1024}
           height={1280}
           loading="eager"
           className="h-full w-full object-cover"
         />
+        <div
+          dir="rtl"
+          aria-hidden="true"
+          className="absolute left-1/2 top-[60%] -translate-x-1/2 -rotate-[2deg] whitespace-nowrap text-[23px] font-black text-[hsl(var(--welcome-ink))]"
+        >
+          اشتراك ميغسي
+        </div>
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
       <div className="relative z-10 -mt-2 px-6 text-left">
-        <p className="text-[11px] font-extrabold uppercase text-[hsl(var(--welcome-muted))]">Megsy Pro</p>
-        <h2 className="mt-1 text-[32px] font-extrabold leading-[1.04] text-[hsl(var(--welcome-ink))] sm:text-[38px]">
-          More power. Fewer limits.
+        <h2 className="text-[31px] font-extrabold leading-[1.04] text-[hsl(var(--welcome-ink))] sm:text-[38px]">
+          Unlock more with Megsy Pro.
         </h2>
-        <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5" aria-label="Megsy Pro benefits">
-          {["Advanced AI models", "Higher usage limits", "More image & video", "Megsy Computer", "Longer tasks", "Priority access"].map((feature) => (
+        <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2" aria-label="Megsy Pro benefits">
+          {["Advanced AI models", "4-hour computer tasks", "Unlimited AI images", "More video creation", "Unlimited research", "Apps & websites"].map((feature) => (
             <div key={feature} className="flex min-w-0 items-center gap-2 text-[13px] font-bold text-[hsl(var(--welcome-ink))]">
               <span className="grid size-4 shrink-0 place-items-center rounded-full bg-[hsl(var(--welcome-ink)/.07)]">
                 <Check className="size-2.5" strokeWidth={2.5} />
@@ -231,6 +237,13 @@ function ProScreen() {
             </div>
           ))}
         </div>
+        <div className="mt-4 flex items-end gap-2 text-[hsl(var(--welcome-ink))]">
+          <strong className="text-[30px] leading-none">$7</strong>
+          <span className="pb-0.5 text-sm font-bold">for your first month</span>
+        </div>
+        <p className="mt-1 text-[11px] font-medium text-[hsl(var(--welcome-muted))]">
+          Then $20/month. Cancel anytime.
+        </p>
       </div>
     </div>
   );

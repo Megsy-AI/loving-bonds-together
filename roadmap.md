@@ -36,3 +36,4 @@
 - [x] Refresh welcome imagery, clarify service copy, and remove the gold Pro treatment
 - [x] Add three character-led welcome visuals, fuller service lists, and clear Pro benefits
 - [x] Match the character photography more closely to the references and restore simple welcome copy
+- [x] Research and rewrite welcome copy; add the transparent $7 Pro offer and subscription-card visual
