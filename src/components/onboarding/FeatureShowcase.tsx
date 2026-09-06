@@ -1,12 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getPayRegionOrGuess, setPayRegion, type PayRegion } from "@/lib/payRegion";
 import { setUserLang } from "@/lib/authI18n";
 import welcomeResearch from "@/assets/welcome-character-research-v2.jpg";
 import welcomeCreate from "@/assets/welcome-character-create-v2.jpg";
-import welcomePro from "@/assets/welcome-pro-editorial-girl-v2.jpg";
+import welcomePro from "@/assets/welcome-pro-visa-card.jpg";
 import "@/styles/welcome-showcase.css";
+
+const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-poster.jpg";
+const AUTH_HERO_WEBM = "/route-assets/auth/auth-hero.webm";
+const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero.mp4";
 
 type Direction = "next" | "prev";
 
