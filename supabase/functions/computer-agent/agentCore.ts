@@ -401,11 +401,14 @@ export async function handleComputerAgent(payload: ComputerPayload | null): Prom
       // starting from the configured model.
       const llmCandidates = [
         Deno.env.get("BROWSER_USE_LLM")?.trim() || undefined,
-        "browser-use-llm",
+        // Free-plan model first: the premium ones 403 on a free account and
+        // every rejected attempt just delays the start of the run.
         "bu-2-0-mini-preview",
+        "browser-use-llm",
         "gemini-2.5-flash",
         undefined,
       ];
+
 
       let res = await callUpstream(supabase, {
         path: "/tasks",
