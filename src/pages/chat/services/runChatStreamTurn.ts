@@ -1519,7 +1519,19 @@ export async function runChatStreamTurn(opts: RunChatStreamTurnOptions): Promise
               settleRunningTools("done");
               isSubmittingRef.current = false;
               if (cid) {
-                const savedId = await saveMessage(cid, "assistant", answer.text);
+                const savedId = await saveMessage(cid, "assistant", answer.text, undefined, {
+                  kind: "computerTask",
+                  computerTaskId: answer.taskId || undefined,
+                  reasoning: trace.join("\n"),
+                  narrations: trace.slice(-60),
+                  toolParts: trace.map((title, index) => ({
+                    id: `browser-${localTurnId}-${index}`,
+                    name: "browser",
+                    appSlug: "browser",
+                    target: title,
+                    state: "done",
+                  })),
+                });
                 if (savedId) ownInsertedIdsRef.current.add(savedId);
               }
               return;

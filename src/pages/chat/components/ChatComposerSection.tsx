@@ -9,6 +9,7 @@ import { ComposerAnimatedInput } from "./ComposerAnimatedInput";
 import { prewarmSendPath } from "../lib/prewarmSendPath";
 import ComposerServicePanel from "./ComposerServicePanel";
 import StarterCards, { StarterChips } from "./StarterCards";
+import ComposerComputerDock from "@/components/chat/ComposerComputerDock";
 
 import type { AttachedFile } from "../hooks/useAttachments";
 
@@ -172,6 +173,7 @@ export function ChatComposerSection(props: ChatComposerSectionProps) {
 
                 <ComposerAnimatedInput
                 {...(composerAnimatedInputProps as any)}
+                computerSlot={<ComposerComputerDock />}
                 modesToggleVisible
                 modesShown={effectiveModesShown}
                 onToggleModes={() => setModesShown((v) => !v)}

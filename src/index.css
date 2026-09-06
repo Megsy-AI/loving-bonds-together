@@ -3701,6 +3701,15 @@ select,
 /* A closed mobile sidebar stays mounted behind the page shell. Make it
    completely untouchable so it can never swallow a tap meant for the page. */
 @media (max-width: 767px) {
+  [data-starter-chips-scroll] {
+    touch-action: pan-x !important;
+    scroll-behavior: smooth;
+  }
+
+  [data-starter-chips-scroll] > button {
+    touch-action: pan-x !important;
+  }
+
   [data-mobile-sidebar-open="false"] {
     pointer-events: none !important;
   }

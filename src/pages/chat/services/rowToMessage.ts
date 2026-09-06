@@ -79,7 +79,11 @@ export function rowToMessage(
                 ? "deep-research"
                 : convMode === "learning"
                   ? "learning"
-                  : undefined,
+                  : convMode === "code"
+                    ? "code"
+                    : convMode === "operator"
+                      ? "operator"
+                      : undefined,
     slidesDeck: meta.slidesDeck || undefined,
     standardSlides: meta.standardSlides || undefined,
     imageSlides: meta.imageSlides || undefined,
