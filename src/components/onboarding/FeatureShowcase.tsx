@@ -8,9 +8,9 @@ import welcomeCreate from "@/assets/welcome-character-create-v2.jpg";
 import welcomePro from "@/assets/welcome-pro-card-blue.jpg";
 import "@/styles/welcome-showcase.css";
 
-const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v4-poster.jpg";
-const AUTH_HERO_WEBM = "/route-assets/auth/auth-hero-v4.mp4";
-const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v4.mp4";
+const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v5-poster.jpg";
+const AUTH_HERO_WEBM = "/route-assets/auth/auth-hero-v5.mp4";
+const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v5.mp4";
 
 type Direction = "next" | "prev";
 
