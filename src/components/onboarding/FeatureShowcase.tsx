@@ -180,24 +180,10 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
           onClick={continueFlow}
           className="h-14 w-full rounded-md bg-[hsl(var(--welcome-ink))] text-base font-bold !text-[hsl(var(--welcome-paper))] shadow-none hover:bg-[hsl(var(--welcome-ink)/.9)]"
         >
-          {isPro ? "ابدأ رحلتك" : "Continue"}
+          {isPro ? "Start now" : "Continue"}
           {!isPro && <ArrowRight className="size-5" />}
         </Button>
-
       </div>
-
-      {index > 0 && !isPro && (
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          aria-label="Back"
-          onClick={() => goTo(index - 1)}
-          className="absolute left-4 top-[calc(12px+env(safe-area-inset-top))] z-30 rounded-full text-[hsl(var(--welcome-ink))] hover:bg-[hsl(var(--welcome-ink)/.06)]"
-        >
-          <ArrowLeft className="size-5" />
-        </Button>
-      )}
     </main>
   );
 }
