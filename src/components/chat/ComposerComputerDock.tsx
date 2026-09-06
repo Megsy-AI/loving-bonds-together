@@ -1,9 +1,10 @@
 /**
  * @doc Computer surface embedded straight into the composer.
  *
- * Collapsed: one slim row — a small rectangular live preview, the label
- * "كومبيوتر ميغسي" with a slowly rotating gold Megsy star, and an up-arrow
- * button. Expanded: a clean box that shows the computer screen only.
+ * Collapsed: one hard, quiet row — a small rectangular preview thumbnail, the
+ * label "كومبيوتر ميغسي" with a slowly rotating gold Megsy star, and an
+ * up-arrow. Expanded: the same row plus a clean screen area, nothing else —
+ * no titles, no buttons, no chrome inside.
  */
 import { useEffect, useState } from "react";
 import { ChevronUp } from "lucide-react";
@@ -25,64 +26,80 @@ export function ComposerComputerDock({ className = "" }: { className?: string })
 
   const title = isAr ? "كومبيوتر ميغسي" : "Megsy Computer";
 
-  const screen = (interactive: boolean) =>
-    view.url ? (
-      <iframe
-        key={`${view.url}-${interactive ? "full" : "peek"}`}
-        src={view.url}
-        title={title}
-        className={`absolute inset-0 h-full w-full border-0 ${interactive ? "pointer-events-auto" : "pointer-events-none"}`}
-        allow="clipboard-read; clipboard-write"
-        sandbox="allow-scripts allow-same-origin allow-forms"
-      />
-    ) : view.poster ? (
-      <img
-        src={view.poster}
-        alt=""
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover object-top"
-      />
-    ) : (
-      <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.08] via-foreground/[0.03] to-transparent motion-safe:animate-pulse" />
-    );
-
   return (
     <div
       data-composer-computer
-      className={`overflow-hidden rounded-[20px] border border-border/45 bg-background/75 shadow-none backdrop-blur-md ${className}`}
+      className={`overflow-hidden rounded-xl border border-border/60 bg-background ${className}`}
       dir={isAr ? "rtl" : "ltr"}
     >
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        aria-label={open ? (isAr ? "تصغير كومبيوتر ميغسي" : "Collapse Megsy Computer") : (isAr ? "تكبير كومبيوتر ميغسي" : "Expand Megsy Computer")}
-        className="flex min-h-12 w-full items-center gap-2.5 px-2.5 py-2 text-start"
+        aria-label={
+          open
+            ? isAr
+              ? "تصغير كومبيوتر ميغسي"
+              : "Collapse Megsy Computer"
+            : isAr
+              ? "تكبير كومبيوتر ميغسي"
+              : "Expand Megsy Computer"
+        }
+        className="flex h-11 w-full items-center gap-2.5 px-2 text-start"
       >
-        {/* small rectangular live preview */}
-        <span className="relative h-9 w-14 shrink-0 overflow-hidden rounded-lg border border-border/50 bg-foreground/90">
-          {screen(false)}
+        {/* small preview thumbnail — a still frame, never a live iframe:
+            a scaled-down browser never reads as anything but a black blob. */}
+        <span className="relative h-7 w-11 shrink-0 overflow-hidden rounded-md border border-border/60 bg-muted">
+          {view.poster ? (
+            <img
+              src={view.poster}
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover object-top"
+            />
+          ) : (
+            <span className="absolute inset-0 grid place-items-center">
+              <span
+                className={`h-1 w-1 rounded-full bg-muted-foreground/60 ${view.active ? "motion-safe:animate-pulse" : ""}`}
+              />
+            </span>
+          )}
         </span>
 
         <MegsyStar
-          className={`h-4 w-4 shrink-0 text-[var(--megsy-gold)] ${view.active ? "motion-safe:animate-[spin_3s_linear_infinite]" : ""}`}
+          className={`h-3.5 w-3.5 shrink-0 text-[var(--megsy-gold)] ${view.active ? "motion-safe:animate-[spin_4s_linear_infinite]" : ""}`}
         />
 
         <span className="min-w-0 flex-1 truncate text-[12.5px] font-medium text-foreground">
           {title}
         </span>
 
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-muted-foreground">
-          <ChevronUp
-            className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-            aria-hidden
-          />
-        </span>
+        <ChevronUp
+          className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          aria-hidden
+        />
       </button>
 
       {open ? (
-        <div className="relative w-full overflow-hidden bg-foreground/90" style={{ height: "min(52vh, 380px)" }}>
-          {screen(true)}
+        <div
+          className="relative w-full overflow-hidden border-t border-border/60 bg-muted"
+          style={{ height: "min(50vh, 360px)" }}
+        >
+          {view.url ? (
+            <iframe
+              src={view.url}
+              title={title}
+              className="absolute inset-0 h-full w-full border-0"
+              allow="clipboard-read; clipboard-write"
+              sandbox="allow-scripts allow-same-origin allow-forms"
+            />
+          ) : view.poster ? (
+            <img src={view.poster} alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
+          ) : (
+            <div className="absolute inset-0 grid place-items-center">
+              <MegsyStar className="h-6 w-6 text-[var(--megsy-gold)] motion-safe:animate-[spin_4s_linear_infinite]" />
+            </div>
+          )}
         </div>
       ) : null}
     </div>
