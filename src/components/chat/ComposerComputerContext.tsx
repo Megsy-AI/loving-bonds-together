@@ -10,10 +10,7 @@ const ComposerComputerContext = createContext<ComposerComputerContextValue | nul
 
 export function ComposerComputerProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
-  const toggle = useCallback(() => {
-    console.log("[ComposerComputer] toggle called, current open:", open);
-    setOpen((v) => !v);
-  }, [open]);
+  const toggle = useCallback(() => setOpen((v) => !v), []);
   return (
     <ComposerComputerContext.Provider value={{ open, setOpen, toggle }}>
       {children}
