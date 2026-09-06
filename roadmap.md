@@ -1,0 +1,32 @@
+# Roadmap
+
+- [x] Stop first-message page refresh and remove disruptive chat motion
+- [x] Unify thinking UI (one icon set, model-written text, no step numbers, no slides-only stages)
+- [x] Repair deep research, coding, image, and slides request flows without Lovable AI
+- [x] Redesign the Plus menu, chips, model/agent pickers, and integrations loading
+- [x] Animate message reactions (like/dislike) and remove their background/shadow
+- [x] Fix the user-message action menu appearing/disappearing randomly
+- [x] Smaller chat font and smaller send button
+- [x] Normalize sidebar open behavior on every page; scrollable sidebar header; move the + away from the profile row
+- [x] Speed up page-to-page navigation
+- [x] Clean up settings, referrals, mail, and pricing layouts; rewrite the centered empty-state copy
+- [x] Kashier: keys stored, checkout redirect fixed, webhook + activation
+- [x] Verify public mobile/desktop flows; authenticated end-to-end verification is unavailable for the externally managed Supabase project
+- [x] Rebuild the mobile composer as a compact expanding Gemini-style pill
+- [x] Limit the Plus menu to images, files, and skills; simplify its opening behavior
+- [x] Redesign the model picker and integrations as lightweight single-surface menus
+- [x] Replace the mobile push sidebar with a full-screen overlay page
+- [x] Restyle user messages and place copy/edit controls below the selected message
+- [x] Split thinking behavior: transient for normal chat, permanently detailed for computer/code/long tasks
+- [x] Remove the Megsy mark below assistant feedback controls
+- [x] Add the animated blue lower-page glow for empty and active long-running/media states
+- [x] Hide the header upgrade action after the first message
+- [x] Verify empty, active chat, menus, and long-task states on mobile
+- [x] Match the compact Plus list, shorten integrations, and repair mobile composer typing
+- [x] Pin the mobile sidebar header and rebuild its fixed account footer
+- [x] Blend the mobile sidebar header into the panel and match the clean reference footer
+- [x] Lock the mobile sidebar footer to one LTR layout and stop the composer area blocking chat content
+- [x] Match the mobile sidebar footer controls to the reference's compact physical dimensions
+- [x] Fix the RTL spacing override and pin the account group to the footer's far right
+- [x] Rebuild and verify mobile starter chips, the embedded Megsy Computer surface, and permanent tool traces
+- [x] Rebuild the mobile computer run as a dark single-column task view and verify it at 434px
