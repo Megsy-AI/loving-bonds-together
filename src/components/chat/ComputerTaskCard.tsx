@@ -70,7 +70,8 @@ export default function ComputerTaskCard({ taskId }: Props) {
     };
   }, [taskId]);
 
-  const running = !timedOut && (!task || task.status === "pending" || task.status === "running");
+  const running =
+    !timedOut && (!task || task.status === "pending" || task.status === "running" || task.status === "paused");
   const files = task?.files ?? [];
   // Internal bookkeeping (checkpoints, raw errors, JSON) never reaches the chat.
   const traceSteps = useMemo(() => cleanTrace(events.map((event) => event.title)), [events]);
