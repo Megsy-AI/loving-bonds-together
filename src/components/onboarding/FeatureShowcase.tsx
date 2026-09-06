@@ -5,7 +5,7 @@ import { getPayRegionOrGuess, setPayRegion, type PayRegion } from "@/lib/payRegi
 import { setUserLang } from "@/lib/authI18n";
 import welcomeResearch from "@/assets/welcome-character-research-v2.jpg";
 import welcomeCreate from "@/assets/welcome-character-create-v2.jpg";
-import welcomePro from "@/assets/welcome-character-subscription-blank.jpg";
+import welcomePro from "@/assets/welcome-pro-editorial-girl.jpg";
 import "@/styles/welcome-showcase.css";
 
 type Direction = "next" | "prev";
