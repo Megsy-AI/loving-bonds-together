@@ -30,10 +30,7 @@ export function ComposerComputerDock({ className = "" }: { className?: string })
     >
       <button
         type="button"
-        onClick={() => {
-          console.log("[ComposerComputerDock] button clicked");
-          toggle();
-        }}
+        onClick={toggle}
         aria-expanded={open}
         aria-label={
           open
