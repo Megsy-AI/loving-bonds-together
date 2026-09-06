@@ -183,7 +183,7 @@ const ThinkingTrace = ({
           <ChevronDown className={`h-3.5 w-3.5 shrink-0 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden />
         </button>
 
-        {(open || active) && (
+        {(open || active) && stepLines.length > 0 && (
           <ol className="mt-4 flex min-w-0 flex-col gap-5 border-s border-primary/25 ps-5">
             {stepLines.map((line, i) => {
               const isCurrent = !!active && i === stepLines.length - 1;
@@ -207,11 +207,6 @@ const ThinkingTrace = ({
                 </li>
               );
             })}
-            {stepLines.length === 0 && (
-              <li className="text-[12.5px] text-muted-foreground/80">
-                {isAr ? "لا توجد خطوات بعد…" : "No steps yet…"}
-              </li>
-            )}
           </ol>
         )}
 
