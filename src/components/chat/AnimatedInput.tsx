@@ -384,6 +384,7 @@ const AnimatedInput = ({
               )}
             </AnimatePresence>
 
+            {!compact && (
             <div className={`relative ${listening ? "hidden" : ""}`}>
 
               {!value && (
@@ -447,6 +448,7 @@ const AnimatedInput = ({
                 style={{ minHeight: "38px" }}
               />
             </div>
+            )}
             <AnimatePresence>{listening ? <ComposerVoiceWave /> : null}</AnimatePresence>
           </div>
 
