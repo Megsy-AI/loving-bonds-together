@@ -225,7 +225,7 @@ function ProScreen() {
 
       <div className="relative z-10 -mt-2 px-6 text-left">
         <h2 className="text-[31px] font-extrabold leading-[1.04] text-[hsl(var(--welcome-ink))] sm:text-[38px]">
-          Unlock more with Megsy Pro.
+          Unlock more.
         </h2>
         <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2" aria-label="Megsy Pro benefits">
           {["Advanced AI models", "4-hour computer tasks", "Unlimited AI images", "More video creation", "Unlimited research", "Apps & websites"].map((feature) => (
