@@ -33,9 +33,9 @@ import { useRateLimit } from "@/lib/guards/rateLimiter";
 
 // Self-hosted compressed hero clip (see MobileAuthIntro) — the old 33MB CDN
 // file was too large to ever start playing on real connections.
-const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v4.mp4";
-const AUTH_HERO_WEBM = "/route-assets/auth/auth-hero-v4.mp4";
-const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v4-poster.jpg";
+const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v5.mp4";
+const AUTH_HERO_WEBM = "/route-assets/auth/auth-hero-v5.mp4";
+const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v5-poster.jpg";
 const AUTH_ASSET_BASE = "/route-assets/auth";
 
 type Step =
