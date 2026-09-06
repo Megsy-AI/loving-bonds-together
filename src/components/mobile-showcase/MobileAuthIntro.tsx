@@ -3,11 +3,9 @@ import { m as motion, AnimatePresence } from "framer-motion";
 import { AlertCircle, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { useBrandLogo } from "@/hooks/useBrandLogo";
 import { t as authT, useUserLang } from "@/lib/authI18n";
-import authHeroMp4Asset from "@/assets/auth/auth-hero-v4.mp4.asset.json";
-import authHeroPosterAsset from "@/assets/auth/auth-hero-v4-poster.jpg.asset.json";
 
-const AUTH_HERO_MP4 = authHeroMp4Asset.url;
-const AUTH_HERO_POSTER = authHeroPosterAsset.url;
+const AUTH_HERO_MP4 = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260330_153826_e9005cf7-a1c7-4c7d-886f-fea22d644a9c.mp4";
+const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v3-poster.jpg";
 interface Props {
   onGoogle: () => void;
   onEmail: () => void;
