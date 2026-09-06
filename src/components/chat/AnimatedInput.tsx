@@ -298,7 +298,7 @@ const AnimatedInput = ({
           data-compact={compact ? "true" : "false"}
           className={`chat-composer-frame chat-mobile-input-glow composer-card pointer-events-auto relative z-10 transition-[border-radius,margin,padding] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             compact
-              ? "mx-0 rounded-3xl px-3 py-2"
+              ? "mx-0 rounded-[32px] px-2 py-1.5"
               : "mx-0 rounded-[26px] px-3.5 pt-3 pb-2.5 md:px-4 md:pt-3 md:pb-2.5"
           } ${chatContext ? "chat-composer-liquid" : ""}`}
         >
@@ -463,7 +463,7 @@ const AnimatedInput = ({
               onClick={onPlusClick}
               variant="ghost"
               size="icon-sm"
-              className="animated-plus-btn shrink-0 rounded-full text-muted-foreground hover:text-foreground"
+              className="animated-plus-btn relative z-[61] flex items-center justify-center h-10 w-10 text-muted-foreground hover:text-foreground hover:bg-foreground/[0.06] rounded-full transition-all duration-150 cursor-pointer active:scale-[0.9] shrink-0"
               aria-label={uiT("openTools")}
               data-plus-trigger
             >
@@ -507,7 +507,7 @@ const AnimatedInput = ({
                     data-testid="mobile-composer-send"
                     variant="neutral"
                     size="icon-sm"
-                    className="shrink-0 rounded-full shadow-none disabled:opacity-40"
+                    className="shrink-0 rounded-full h-10 w-10 shadow-none disabled:opacity-40"
                     aria-label={uiT("sendMessage")}
                   >
                     <ArrowUp className="w-[18px] h-[18px] md:w-4 md:h-4" strokeWidth={2.2} />

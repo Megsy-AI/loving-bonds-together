@@ -193,9 +193,9 @@ html.light .chat-composer-frame,
 html.light [data-chat-composer],
 html.light .animated-input-shell {
   background-color: #ffffff !important;
-  border: 1px solid rgba(23, 23, 26, 0.22) !important;
-  border-radius: 24px !important;
-  box-shadow: 0 8px 28px -14px rgba(23, 23, 26, 0.22) !important;
+  border: 1px solid rgba(23, 23, 26, 0.09) !important;
+  border-radius: 32px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
 }
 
 /* Higher-specificity guard: the chat skin sets `border: 0 !important` on the
@@ -205,9 +205,9 @@ html.light .chat-composer-frame.chat-composer-liquid,
 html.light body .chat-composer-frame {
   border-width: 1px !important;
   border-style: solid !important;
-  border-color: rgba(23, 23, 26, 0.22) !important;
+  border-color: rgba(23, 23, 26, 0.09) !important;
   background-color: #ffffff !important;
-  box-shadow: 0 8px 28px -14px rgba(23, 23, 26, 0.22) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
 }
 
 
