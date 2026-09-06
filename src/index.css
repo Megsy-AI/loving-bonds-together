@@ -3788,9 +3788,31 @@ select,
   background-image: var(--gradient-sunset-liquid);
   background-repeat: no-repeat;
   background-size: 180% 180%, 170% 170%, 175% 175%, 180% 180%, 200% 100%;
-  animation: sunset-liquid-drift 14s ease-in-out infinite;
-  will-change: background-position;
+  animation:
+    sunset-liquid-drift 14s ease-in-out infinite,
+    sunset-hue-cycle 16s linear infinite;
+  will-change: background-position, filter;
 }
+
+/* Colour journey: pink -> red -> blue -> full spectrum, on loop. */
+@keyframes sunset-hue-cycle {
+  0% {
+    filter: hue-rotate(0deg) saturate(1.05);
+  }
+  15% {
+    filter: hue-rotate(25deg) saturate(1.15);
+  }
+  45% {
+    filter: hue-rotate(190deg) saturate(1.25);
+  }
+  70% {
+    filter: hue-rotate(265deg) saturate(1.2);
+  }
+  100% {
+    filter: hue-rotate(360deg) saturate(1.05);
+  }
+}
+
 
 /* The glass: a single soft highlight sweep, plus a top-light gradient. */
 .btn-sunset::after {
