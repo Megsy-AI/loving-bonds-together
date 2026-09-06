@@ -147,7 +147,8 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
 
         <Button
           type="button"
-          variant="neutral"
+          variant="ghost"
+          data-plain
           onClick={continueFlow}
           className={`h-14 w-full rounded-md text-base font-bold shadow-none ${
             isPro
@@ -196,7 +197,7 @@ function IntroScreen({
 }) {
   return (
     <div className="mx-auto flex h-full w-full max-w-md flex-col pb-40 sm:max-w-lg">
-      <div className="relative h-[53dvh] min-h-[300px] max-h-[570px] w-full overflow-hidden">
+      <div className="relative h-[50dvh] min-h-[290px] max-h-[540px] w-full overflow-hidden">
         <img
           src={screen.image}
           alt={screen.alt}
@@ -209,7 +210,7 @@ function IntroScreen({
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
-      <div className="-mt-3 px-7 text-right">
+      <div className="relative z-10 -mt-1 px-7 text-right">
         <div className="mb-3 flex items-center justify-end gap-2 text-[hsl(var(--welcome-muted))]">
           <MegsyStar className="h-3.5 w-3.5" />
           <span className="text-[11px] font-bold uppercase tracking-[0.16em]">{screen.eyebrow}</span>
@@ -228,7 +229,7 @@ function IntroScreen({
 function ProScreen() {
   return (
     <div className="relative mx-auto flex h-full w-full max-w-md flex-col pb-44 sm:max-w-lg">
-      <div className="relative h-[52dvh] min-h-[300px] max-h-[560px] w-full overflow-hidden">
+      <div className="relative h-[50dvh] min-h-[300px] max-h-[540px] w-full overflow-hidden">
         <img
           src={welcomePro}
           alt="صندوق أسود مفتوح مليء بنجوم Megsy الذهبية"
