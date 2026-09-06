@@ -33,3 +33,4 @@
 - [x] Repair mobile starter-chip scrolling/actions, composer computer expansion, and permanent task traces
 - [x] Replace welcome with three lightweight image-led screens and a golden Megsy Pro reveal
 - [x] Replace the first welcome visual and simplify all welcome copy in English
+- [x] Refresh welcome imagery, clarify service copy, and remove the gold Pro treatment
