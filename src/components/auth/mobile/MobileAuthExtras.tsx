@@ -34,9 +34,9 @@ interface Props {
   onBack: () => void;
 }
 
-const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v5.mp4";
-const AUTH_HERO_WEBM = "/route-assets/auth/auth-hero-v5.mp4";
-const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v5-poster.jpg";
+const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v6.mp4";
+const AUTH_HERO_WEBM = "/route-assets/auth/auth-hero-v6.mp4";
+const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v6-poster.jpg";
 
 const FONT_SERIF = '"ITC Garamond Std Narrow", "Playfair Display", Garamond, serif';
 const FONT_SANS = 'Inter, -apple-system, "SF Pro Text", system-ui, sans-serif';
