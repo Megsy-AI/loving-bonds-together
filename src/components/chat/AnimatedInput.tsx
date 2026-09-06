@@ -463,7 +463,7 @@ const AnimatedInput = ({
               onClick={onPlusClick}
               variant="ghost"
               size="icon-sm"
-              className="animated-plus-btn shrink-0 rounded-full text-muted-foreground hover:text-foreground"
+              className="animated-plus-btn relative z-[61] flex items-center justify-center h-10 w-10 text-muted-foreground hover:text-foreground hover:bg-foreground/[0.06] rounded-full transition-all duration-150 cursor-pointer active:scale-[0.9] shrink-0"
               aria-label={uiT("openTools")}
               data-plus-trigger
             >

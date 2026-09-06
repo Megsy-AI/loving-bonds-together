@@ -37,14 +37,14 @@ const handleCardClick = (
 };
 
 const chipClass =
-  "group inline-flex h-9 items-center gap-2 rounded-full bg-muted/50 " +
-  "px-3.5 shadow-none hover:bg-muted active:scale-[0.97] " +
+  "group inline-flex h-9 items-center gap-2 rounded-full border border-foreground/[0.09] bg-background " +
+  "px-4 shadow-[0_1px_3px_rgba(0,0,0,0.05)] hover:bg-muted/50 active:scale-[0.97] " +
   "transition-[background-color,transform] duration-150";
 
 const iconClass =
   "h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground";
 const labelClass =
-  "whitespace-nowrap text-[12.5px] font-medium text-foreground/90 transition-colors";
+  "whitespace-nowrap text-[13px] font-medium text-foreground/80 transition-colors";
 
 /** Desktop-only: compact icon chips shown below the composer (no images). */
 export function StarterChips({ onPick, className = "" }: StarterCardsProps) {
@@ -87,7 +87,7 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
       <div
         data-starter-chips-scroll
         dir={isAr ? "rtl" : "ltr"}
-        className="flex w-full snap-x snap-proximity gap-2 overflow-x-auto overscroll-x-contain px-2 py-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden"
+        className="flex w-full snap-x snap-proximity gap-2 overflow-x-auto overscroll-x-contain ps-3 pe-8 py-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden"
       >
         {CARDS.map((c) => (
           <button
@@ -101,6 +101,15 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
           </button>
         ))}
       </div>
+      {/* Edge fade hints that the row scrolls */}
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-y-0 w-10 ${
+          isAr
+            ? "left-0 bg-gradient-to-r from-background to-transparent"
+            : "right-0 bg-gradient-to-l from-background to-transparent"
+        }`}
+      />
     </motion.div>
   );
 }

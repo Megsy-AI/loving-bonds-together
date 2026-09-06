@@ -673,7 +673,7 @@ select {
   border: 1px solid hsl(var(--foreground) / 0.15) !important;
   background: hsl(var(--foreground) / 0.05) !important;
   box-shadow: none !important;
-  min-height: 80px;
+  min-height: 0;
   border-radius: 1.1rem !important;
 }
 
