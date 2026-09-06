@@ -3,24 +3,25 @@
  *
  * Collapsed: one hard, quiet row — a small rectangular preview thumbnail, the
  * label "كومبيوتر ميغسي" with a slowly rotating gold Megsy star, and an
- * up-arrow. Expanded: the same row plus a clean screen area, nothing else —
- * no titles, no buttons, no chrome inside.
+ * up-arrow. Expanded: the input box disappears and only a clean screen area
+ * remains, nothing else — no titles, no buttons, no chrome inside.
  */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ChevronUp } from "lucide-react";
 import MegsyStar from "@/components/branding/MegsyStar";
 import { useComputerLiveView } from "@/lib/computer/liveView";
 import { useUserLang } from "@/lib/authI18n";
+import { useComposerComputer } from "./ComposerComputerContext";
 
 export function ComposerComputerDock({ className = "" }: { className?: string }) {
   const view = useComputerLiveView();
   const lang = useUserLang();
-  const [open, setOpen] = useState(false);
+  const { open, setOpen, toggle } = useComposerComputer();
   const isAr = lang.startsWith("ar");
 
   useEffect(() => {
     setOpen(false);
-  }, [view?.id]);
+  }, [view?.id, setOpen]);
 
   if (!view || (!view.active && !view.url && !view.poster)) return null;
 
@@ -34,7 +35,7 @@ export function ComposerComputerDock({ className = "" }: { className?: string })
     >
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={toggle}
         aria-expanded={open}
         aria-label={
           open

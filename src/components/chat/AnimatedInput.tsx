@@ -20,6 +20,7 @@ import { isSendKey } from "@/lib/composerKey";
 import { parseSlashCommand } from "@/lib/slashCommands";
 import { useNavigate, useLocation } from "react-router-dom";
 import { t as uiT, useUserLang } from "@/lib/authI18n";
+import { useComposerComputer } from "./ComposerComputerContext";
 import { Button } from "@/components/ui/button";
 
 /** Leading marker used by the "create skill" draft flow. */
@@ -100,6 +101,7 @@ const AnimatedInput = ({
   canSendWithoutText,
 }: AnimatedInputProps) => {
   const currentLang = useUserLang();
+  const { open: computerOpen } = useComposerComputer();
   const deferredValue = useDeferredValue(value);
   const navigate = useNavigate();
   const isArabicUi =
@@ -288,7 +290,9 @@ const AnimatedInput = ({
           />
         )}
       </AnimatePresence>
-      {/* Desktop: liquid-glass surface (no solid card wrapper) */}
+      {computerOpen ? (
+        <div className="md:rounded-[28px] overflow-hidden">{computerSlot}</div>
+      ) : (
       <div className="md:rounded-[28px]">
         <motion.div
           data-compact={compact ? "true" : "false"}
@@ -515,6 +519,7 @@ const AnimatedInput = ({
 
         </motion.div>
       </div>
+      )}
 
     </div>
   );
