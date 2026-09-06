@@ -135,7 +135,7 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
           onClick={continueFlow}
           className="h-14 w-full rounded-md bg-[hsl(var(--welcome-ink))] text-base font-bold !text-[hsl(var(--welcome-paper))] shadow-none hover:bg-[hsl(var(--welcome-ink)/.9)]"
         >
-          {isPro ? "Start for $7" : "Continue"}
+          {isPro ? "ابدأ رحلتك" : "Continue"}
           {!isPro && <ArrowRight className="size-5" />}
         </Button>
 
