@@ -6,7 +6,6 @@
  * up-arrow. Expanded: the input box disappears and only a clean screen area
  * remains, nothing else — no titles, no buttons, no chrome inside.
  */
-import { useEffect } from "react";
 import { ChevronUp } from "lucide-react";
 import MegsyStar from "@/components/branding/MegsyStar";
 import { useComputerLiveView } from "@/lib/computer/liveView";
@@ -16,12 +15,8 @@ import { useComposerComputer } from "./ComposerComputerContext";
 export function ComposerComputerDock({ className = "" }: { className?: string }) {
   const view = useComputerLiveView();
   const lang = useUserLang();
-  const { open, setOpen, toggle } = useComposerComputer();
+  const { open, toggle } = useComposerComputer();
   const isAr = lang.startsWith("ar");
-
-  useEffect(() => {
-    setOpen(false);
-  }, [view?.id, setOpen]);
 
   if (!view || (!view.active && !view.url && !view.poster)) return null;
 
