@@ -34,14 +34,11 @@ export interface ThinkingTraceProps {
 
 const RTL_LANGS = new Set(["ar", "ar-eg", "fa", "he"]);
 
-const iconForLine = (line: string, fallback: string | null | undefined) => {
-  const value = line.toLowerCase();
-  if (/browser|web|site|page|متصفح|موقع|صفحة/.test(value)) return "browser";
-  if (/file|folder|document|ملف|مجلد|مستند/.test(value)) return "file";
-  if (/code|build|terminal|command|كود|برمج|طرفية|أمر/.test(value)) return "code";
-  if (/search|research|بحث/.test(value)) return "search";
-  return fallback || "wrench";
-};
+/**
+ * Icons are never guessed from the wording of a step. A tool icon appears only
+ * for the step that is really running a known tool; every other step keeps a
+ * neutral dot marker, so the timeline stays visually stable.
+ */
 
 
 /**
@@ -188,20 +185,28 @@ const ThinkingTrace = ({
 
         {(open || active) && (
           <ol className="mt-4 flex min-w-0 flex-col gap-5 border-s border-primary/25 ps-5">
-            {stepLines.map((line, i) => (
-              <li
-                key={`t-${i}-${line.slice(0, 24)}`}
+            {stepLines.map((line, i) => {
+              const isCurrent = !!active && i === stepLines.length - 1;
+              const showTool = isCurrent && !!running && !!tool;
+              return (
+                <li
+                  key={`t-${i}-${line.slice(0, 24)}`}
                   className="flex min-w-0 items-start gap-3 text-[12.5px] leading-relaxed text-muted-foreground"
-              >
-                <span
-                  aria-hidden
-                   className={`-ms-[27px] mt-0.5 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full border bg-background ${active && i === stepLines.length - 1 ? "border-primary/70 text-primary shadow-[0_0_14px_hsl(var(--primary)/0.35)]" : "border-border/70 text-muted-foreground"}`}
                 >
-                   <ToolIcon name={iconForLine(line, tool)} size={11} />
-                </span>
-                <span className="min-w-0 flex-1 break-words">{line}</span>
-              </li>
-            ))}
+                  <span
+                    aria-hidden
+                    className={`-ms-[27px] mt-0.5 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full border bg-background ${isCurrent ? "border-primary/70 text-primary" : "border-border/70 text-muted-foreground"}`}
+                  >
+                    {showTool ? (
+                      <ToolIcon name={tool as string} size={11} />
+                    ) : (
+                      <span className={`h-[5px] w-[5px] rounded-full ${isCurrent ? "bg-primary" : "bg-border"}`} />
+                    )}
+                  </span>
+                  <span className="min-w-0 flex-1 break-words">{line}</span>
+                </li>
+              );
+            })}
             {stepLines.length === 0 && (
               <li className="text-[12.5px] text-muted-foreground/80">
                 {isAr ? "لا توجد خطوات بعد…" : "No steps yet…"}
@@ -234,7 +239,7 @@ const ThinkingTrace = ({
         className="flex w-full items-center gap-2 text-start shadow-none"
       >
         {active ? (
-          tool ? (
+          running && tool ? (
             <ToolIcon
               name={tool}
               size={14}
