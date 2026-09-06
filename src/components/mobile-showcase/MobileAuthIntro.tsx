@@ -52,9 +52,9 @@ export default function MobileAuthIntro({
   const logo = useBrandLogo();
   const t = isAr
     ? {
-        title1: "The AI platform",
-        title2: "for everything you create",
-        subtitle: "Chat, images, video, slides\nand complete projects in one place",
+        title1: "One place to",
+        title2: "make anything",
+        subtitle: "Chat, images, video and full projects.\nStart in seconds.",
         google: "Continue with Google",
         email: "Continue with email",
         telegram: "Continue with Telegram",
