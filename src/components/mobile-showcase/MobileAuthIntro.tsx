@@ -110,8 +110,9 @@ export default function MobileAuthIntro({
           playsInline
           preload="metadata"
           poster={AUTH_HERO_POSTER}
-          className="absolute left-1/2 top-1/2 h-[115%] w-[115%] -translate-x-1/2 -translate-y-1/2 object-cover"
-          style={{ objectPosition: "center 48%", transform: "translate(-50%, -50%) scale(0.88)" }}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: "center 45%" }}
+
         >
           <source src={AUTH_HERO_MP4} type="video/mp4" />
         </video>
