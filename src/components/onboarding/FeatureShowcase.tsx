@@ -5,7 +5,7 @@ import { getPayRegionOrGuess, setPayRegion, type PayRegion } from "@/lib/payRegi
 import { setUserLang } from "@/lib/authI18n";
 import welcomeEditorial from "@/assets/welcome-korean-editorial.jpg";
 import welcomeCreate from "@/assets/welcome-megsy-create.jpg";
-import welcomePro from "@/assets/welcome-megsy-pro.jpg";
+import welcomePro from "@/assets/welcome-pro-natural.jpg";
 import "@/styles/welcome-showcase.css";
 
 type Direction = "next" | "prev";
@@ -131,7 +131,8 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
           variant="ghost"
           data-plain
           onClick={continueFlow}
-          className="h-14 w-full rounded-md bg-[hsl(var(--welcome-ink))] text-base font-bold text-[hsl(var(--welcome-paper))] shadow-none hover:bg-[hsl(var(--welcome-ink)/.9)]"
+          style={{ color: "hsl(var(--welcome-paper))" }}
+          className="h-14 w-full rounded-md bg-[hsl(var(--welcome-ink))] text-base font-bold shadow-none hover:bg-[hsl(var(--welcome-ink)/.9)]"
         >
           {isPro ? "Unlock Megsy Pro" : "Continue"}
           {!isPro && <ArrowRight className="size-5" />}
@@ -214,7 +215,7 @@ function ProScreen() {
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
-      <div className="-mt-4 px-7 text-left">
+      <div className="relative z-10 px-7 pt-5 text-left">
         <h2 className="text-[38px] font-extrabold leading-[1.03] text-[hsl(var(--welcome-ink))] sm:text-[42px]">
           Do more with Megsy Pro.
         </h2>
