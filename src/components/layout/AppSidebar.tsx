@@ -1158,26 +1158,21 @@ const AppSidebar = ({
       <div
         data-mobile-sidebar-fixed-footer="true"
         dir="ltr"
-        className="z-20 grid h-[72px] shrink-0 grid-cols-[44px_auto_1fr] items-center gap-3 bg-transparent px-5"
+        className="z-20 grid h-[72px] shrink-0 grid-cols-[auto_1fr] items-center gap-3 bg-transparent px-5"
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       >
-        <button
-          type="button"
-          onClick={() => navigateSmoothly("/settings")}
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          aria-label={language === "ar-eg" ? "الإعدادات" : "Settings"}
-        >
-          <Settings className="h-6 w-6" strokeWidth={1.8} />
-        </button>
-
-        {activeUserId && (
+        {activeUserId ? (
           <button
             type="button"
             onClick={() => navigateSmoothly("/pricing")}
-            className="h-10 shrink-0 rounded-full bg-primary/20 px-4 text-[15px] font-medium text-primary transition-colors hover:bg-primary/25"
+            className="flex h-11 shrink-0 items-center gap-2 rounded-full border border-foreground/10 bg-background px-4 text-[14.5px] font-semibold text-foreground shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-all hover:bg-muted/50 active:scale-95"
+            aria-label={language === "ar-eg" ? "ترقية الخطة" : "Upgrade plan"}
           >
-            {language === "ar-eg" ? "ترقية" : "Upgrade"}
+            <MegsyStar size={15} static className="text-foreground" />
+            <span>{language === "ar-eg" ? "ترقية" : "Upgrade"}</span>
           </button>
+        ) : (
+          <span />
         )}
 
         <button
