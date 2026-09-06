@@ -1,118 +1,140 @@
+// Starter cards — horizontally scrollable suggestion chips shown above the
+// composer on a fresh chat. Tapping a card focuses the input (and switches
+// chat mode for the service-specific ones).
+import { memo } from "react";
 import {
-  ImagePlus,
-  Code2,
-  Video as VideoIcon,
+  Globe,
+  Image as ImageIcon,
+  Video,
   Presentation,
-  ScanSearch,
-  FileText,
+  Search,
+  ArrowUp,
+  type LucideIcon,
 } from "lucide-react";
-import { m as motion, AnimatePresence } from "framer-motion";
-import { useUserLang } from "@/lib/authI18n";
+import { useTranslation } from "@/i18n";
+import type { ChatMode } from "../chatConstants";
 
-export interface StarterCardsProps {
-  /** Activates the service chip for the picked card. */
-  onPick: (prompt: string, mode?: string) => void;
-  className?: string;
+interface StarterCardDef {
+  icon: LucideIcon;
+  en: string;
+  ar: string;
+  mode?: ChatMode;
 }
 
-/** Every real service the app offers — no filler. Short labels, no descriptions. */
-const CARDS = [
-  { id: "image", mode: "images", Icon: ImagePlus, title: "Images", titleAr: "صور" },
-  { id: "web", mode: "code", Icon: Code2, title: "Website", titleAr: "موقع" },
-  { id: "video", mode: "video", Icon: VideoIcon, title: "Video", titleAr: "فيديو" },
-  { id: "slides", mode: "slides", Icon: Presentation, title: "Slides", titleAr: "عرض" },
-  { id: "research", mode: "deep-research", Icon: ScanSearch, title: "Research", titleAr: "بحث" },
-  { id: "docs", mode: "docs", Icon: FileText, title: "Documents", titleAr: "مستند" },
+const CARDS: StarterCardDef[] = [
+  { icon: Globe, en: "Website", ar: "موقع", mode: "code" },
+  { icon: ImageIcon, en: "Images", ar: "صور", mode: "images" },
+  { icon: Video, en: "Video", ar: "فيديو", mode: "video" },
+  { icon: Presentation, en: "Slides", ar: "عروض", mode: "slides" },
+  { icon: Search, en: "Research", ar: "بحث", mode: "deep-research" },
 ];
 
-const handleCardClick = (
-  c: (typeof CARDS)[number],
-  onPick: StarterCardsProps["onPick"],
-) => {
-  if (c.id === "integrations") {
-    window.dispatchEvent(new CustomEvent("megsy:open-integrations"));
-    return;
-  }
-  onPick("", (c as { mode?: string }).mode);
-};
-
-const chipClass =
-  "group inline-flex h-9 items-center gap-2 rounded-full border border-foreground/[0.09] bg-background " +
-  "px-4 shadow-[0_1px_3px_rgba(0,0,0,0.05)] hover:bg-muted/50 active:scale-[0.97] " +
-  "transition-[background-color,transform] duration-150";
-
-const iconClass =
-  "h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground";
-const labelClass =
-  "whitespace-nowrap text-[13px] font-medium text-foreground/80 transition-colors";
-
-/** Desktop-only: compact icon chips shown below the composer (no images). */
-export function StarterChips({ onPick, className = "" }: StarterCardsProps) {
-  return (
-    <AnimatePresence initial={false}>
-      <motion.div
-        key="starter-chips-desktop"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
-        className={`hidden md:flex flex-wrap items-center justify-center gap-2 ${className}`}
-      >
-        {CARDS.map((c) => (
-          <button
-            key={c.id}
-            type="button"
-            onClick={() => handleCardClick(c, onPick)}
-            className={chipClass}
-          >
-            <c.Icon className={iconClass} strokeWidth={1.75} />
-            <span className={labelClass}>{c.title}</span>
-          </button>
-        ))}
-      </motion.div>
-    </AnimatePresence>
-  );
+interface StarterCardsProps {
+  isArabicUi: boolean;
+  activeMode?: string | null;
+  onChipPress: (label: string, mode?: ChatMode) => void;
+  onSubmit?: (label: string, mode?: ChatMode) => void;
 }
 
-export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
-  const isAr = useUserLang().startsWith("ar");
+const Card = memo(function Card({
+  icon: Icon,
+  label,
+  active,
+  onClick,
+  arrow,
+}: {
+  icon: LucideIcon;
+  label: string;
+  active?: boolean;
+  onClick: () => void;
+  arrow?: boolean;
+}) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
-      className={`pointer-events-auto relative w-full overflow-hidden md:hidden ${className}`}
+    <button
+      type="button"
+      onClick={onClick}
+      className={[
+        "group flex h-9 shrink-0 items-center gap-2 rounded-xl border px-3.5 transition-all duration-200 active:scale-[0.97]",
+        active
+          ? "border-foreground bg-foreground text-background"
+          : "border-foreground/[0.09] bg-background shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:border-foreground/[0.18]",
+      ].join(" ")}
+      aria-pressed={active}
     >
-      <div
-        data-starter-chips-scroll
-        dir={isAr ? "rtl" : "ltr"}
-        className="flex w-full snap-x snap-proximity gap-2 overflow-x-auto overscroll-x-contain ps-3 pe-8 py-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden"
+      <Icon
+        className={`h-4 w-4 shrink-0 ${active ? "text-background" : "text-foreground/55"}`}
+        strokeWidth={1.8}
+      />
+      <span
+        className={`text-[13px] font-medium leading-none ${
+          active ? "text-background" : "text-foreground/80"
+        }`}
       >
-        {CARDS.map((c) => (
-          <button
-            key={c.id}
-            type="button"
-            onClick={() => handleCardClick(c, onPick)}
-            className={`snap-start shrink-0 ${chipClass}`}
-          >
-            <c.Icon className={iconClass} strokeWidth={1.75} />
-            <span className={labelClass}>{isAr ? c.titleAr : c.title}</span>
-          </button>
-        ))}
+        {label}
+      </span>
+      {arrow && active && (
+        <ArrowUp
+          className="h-3 w-3 shrink-0 text-background/80"
+          strokeWidth={2.2}
+        />
+      )}
+    </button>
+  );
+});
+
+export const StarterCards = memo(function StarterCards({
+  isArabicUi,
+  activeMode,
+  onChipPress,
+  onSubmit,
+}: StarterCardsProps) {
+  const { t } = useTranslation();
+  const isAr = isArabicUi;
+  const selected = CARDS.find((c) => c.mode && c.mode === activeMode);
+  const selectedLabel = selected ? (isAr ? selected.ar : selected.en) : null;
+
+  return (
+    <div className="relative w-full" dir={isAr ? "rtl" : "ltr"}>
+      <div
+        className="flex items-center gap-2 overflow-x-auto no-scrollbar ps-3 pe-8 py-1"
+        data-starter-chips-scroll
+      >
+        {CARDS.map((card) => {
+          const label = isAr ? card.ar : card.en;
+          const isActive = !!card.mode && card.mode === activeMode;
+          return (
+            <Card
+              key={card.en}
+              icon={card.icon}
+              label={label}
+              active={isActive}
+              arrow={!!onSubmit}
+              onClick={() =>
+                isActive && onSubmit
+                  ? onSubmit(label, card.mode)
+                  : onChipPress(label, card.mode)
+              }
+            />
+          );
+        })}
       </div>
-      {/* Edge fade hints that the row scrolls */}
       <div
         aria-hidden
         className={`pointer-events-none absolute inset-y-0 w-10 ${
           isAr
-            ? "left-0 bg-gradient-to-r from-background to-transparent"
-            : "right-0 bg-gradient-to-l from-background to-transparent"
-        }`}
+            ? "left-0 bg-gradient-to-r"
+            : "right-0 bg-gradient-to-l"
+        } from-background to-transparent`}
       />
-    </motion.div>
+    </div>
   );
-}
+});
 
-
-export default StarterCards;
+export const selectedModeTitle = (
+  chatMode: string | null | undefined,
+  isArabicUi: boolean,
+): string | null => {
+  const found = CARDS.find((c) => c.mode === chatMode);
+  if (!found) return null;
+  return isArabicUi ? found.ar : found.en;
+};
