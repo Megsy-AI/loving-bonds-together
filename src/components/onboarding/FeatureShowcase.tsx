@@ -197,7 +197,7 @@ function IntroScreen({
 }) {
   return (
     <div className="mx-auto flex h-full w-full max-w-md flex-col pb-36 sm:max-w-lg">
-      <div className="relative h-[56dvh] min-h-[330px] max-h-[570px] w-full overflow-hidden">
+      <div className="relative h-[68dvh] min-h-[420px] max-h-[680px] w-full overflow-hidden">
         <img
           src={screen.image}
           alt={screen.alt}
@@ -207,7 +207,7 @@ function IntroScreen({
           fetchPriority={eager ? "high" : "auto"}
           className="h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
       <div className="relative z-10 px-7 pt-5 text-left">
@@ -225,7 +225,7 @@ function IntroScreen({
 function ProScreen() {
   return (
     <div className="mx-auto flex h-full w-full max-w-md flex-col pb-36 sm:max-w-lg">
-      <div className="relative h-[56dvh] min-h-[330px] max-h-[570px] w-full overflow-hidden">
+      <div className="relative h-[68dvh] min-h-[420px] max-h-[680px] w-full overflow-hidden">
         <img
           src={welcomePro}
           alt="Woman holding a Megsy Pro card toward the camera"
@@ -235,7 +235,7 @@ function ProScreen() {
           fetchPriority="high"
           className="h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
       <div className="relative z-10 px-7 pt-5 text-left">
