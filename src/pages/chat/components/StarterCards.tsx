@@ -7,6 +7,7 @@ import {
   FileText,
 } from "lucide-react";
 import { m as motion, AnimatePresence } from "framer-motion";
+import { useUserLang } from "@/lib/authI18n";
 
 export interface StarterCardsProps {
   /** Activates the service chip for the picked card. */
@@ -16,12 +17,12 @@ export interface StarterCardsProps {
 
 /** Every real service the app offers — no filler. Short labels, no descriptions. */
 const CARDS = [
-  { id: "image", mode: "images", Icon: ImagePlus, title: "Images" },
-  { id: "web", mode: "code", Icon: Code2, title: "Website" },
-  { id: "video", mode: "video", Icon: VideoIcon, title: "Video" },
-  { id: "slides", mode: "slides", Icon: Presentation, title: "Slides" },
-  { id: "research", mode: "deep-research", Icon: ScanSearch, title: "Research" },
-  { id: "docs", mode: "docs", Icon: FileText, title: "Documents" },
+  { id: "image", mode: "images", Icon: ImagePlus, title: "Images", titleAr: "صور" },
+  { id: "web", mode: "code", Icon: Code2, title: "Website", titleAr: "موقع" },
+  { id: "video", mode: "video", Icon: VideoIcon, title: "Video", titleAr: "فيديو" },
+  { id: "slides", mode: "slides", Icon: Presentation, title: "Slides", titleAr: "عرض" },
+  { id: "research", mode: "deep-research", Icon: ScanSearch, title: "Research", titleAr: "بحث" },
+  { id: "docs", mode: "docs", Icon: FileText, title: "Documents", titleAr: "مستند" },
 ];
 
 const handleCardClick = (
@@ -74,18 +75,19 @@ export function StarterChips({ onPick, className = "" }: StarterCardsProps) {
 }
 
 export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
+  const isAr = useUserLang().startsWith("ar");
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className={`pointer-events-auto relative w-full touch-pan-x md:hidden ${className}`}
+      className={`pointer-events-auto relative w-full overflow-hidden md:hidden ${className}`}
     >
       <div
         data-starter-chips-scroll
-        dir="ltr"
-        className="flex w-full snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain px-4 py-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        dir={isAr ? "rtl" : "ltr"}
+        className="flex w-full snap-x snap-proximity gap-2 overflow-x-auto overscroll-x-contain px-2 py-1.5 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden"
       >
         {CARDS.map((c) => (
           <button
@@ -95,7 +97,7 @@ export function StarterCards({ onPick, className = "" }: StarterCardsProps) {
             className={`snap-start shrink-0 ${chipClass}`}
           >
             <c.Icon className={iconClass} strokeWidth={1.75} />
-            <span className={labelClass}>{c.title}</span>
+            <span className={labelClass}>{isAr ? c.titleAr : c.title}</span>
           </button>
         ))}
       </div>

@@ -16,7 +16,6 @@ import {
 } from "@/lib/computer/client";
 import ThinkingTrace from "@/components/chat/ThinkingTrace";
 import ChatMessage from "@/components/chat/ChatMessage";
-import ComputerRunViewport from "@/components/chat/ComputerRunViewport";
 
 import { clearActiveComputerRun, setActiveComputerRun } from "@/lib/computer/activeRun";
 import { clearComputerLiveView, setComputerLiveView } from "@/lib/computer/liveView";
@@ -100,7 +99,7 @@ export default function ComputerTaskCard({ taskId }: Props) {
 
   if (running) {
     return (
-      <div className="my-4 flex w-full flex-col gap-5">
+      <div className="my-4 flex w-full flex-col">
         <ThinkingTrace
           active
           variant="tools"
@@ -110,11 +109,6 @@ export default function ComputerTaskCard({ taskId }: Props) {
           tool="browser"
           className="mb-0"
         />
-        <ComputerRunViewport
-          url={liveUrl}
-          active
-          status={task?.progress || events.at(-1)?.title || ""}
-        />
       </div>
     );
   }
@@ -122,7 +116,7 @@ export default function ComputerTaskCard({ taskId }: Props) {
   if (timedOut || task?.status === "failed") {
     return (
       <div className="my-4 space-y-4">
-        <ThinkingTrace variant="tools" defaultOpen steps={traceSteps} text={traceText} tool="browser" />
+        <ThinkingTrace variant="tools" steps={traceSteps} text={traceText} tool="browser" />
         <p className="text-[13px] leading-relaxed text-destructive">
           {timedOut ? "المهمة استغرقت وقتًا أطول من المتوقع وتم إيقافها." : computerErrorMessage(task.error)}
         </p>
@@ -134,7 +128,7 @@ export default function ComputerTaskCard({ taskId }: Props) {
 
   return (
     <div className="my-4 space-y-4">
-      <ThinkingTrace variant="tools" defaultOpen steps={traceSteps} text={traceText} tool="browser" />
+      <ThinkingTrace variant="tools" steps={traceSteps} text={traceText} tool="browser" />
       {task?.result_text && <ChatMessage role="assistant" content={task.result_text} />}
 
 

@@ -1121,6 +1121,20 @@ const ChatMessage = ({
     if (!Array.isArray(raw)) return [];
     return raw.map((item: unknown) => String(item || "").trim()).filter(Boolean);
   }, [metadata]);
+  const persistedToolSteps = useMemo<string[]>(() => {
+    if (!Array.isArray(toolParts)) return [];
+    return toolParts
+      .map((part) => {
+        const name = String(part.name || part.appSlug || "").replace(/_/g, " ").trim();
+        const target = String(part.target || "").trim();
+        return [name, target].filter(Boolean).join(" · ");
+      })
+      .filter(Boolean);
+  }, [toolParts]);
+  const settledTraceSteps = useMemo(
+    () => Array.from(new Set([...persistedThinkingSteps, ...persistedToolSteps])),
+    [persistedThinkingSteps, persistedToolSteps],
+  );
   const keepSettledTrace = Boolean(persistentTrace || mode === "code" || mode === "operator");
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [canvasOpen, setCanvasOpen] = useState(false);
@@ -1502,6 +1516,7 @@ const ChatMessage = ({
         )}
         {showLiveThinkingTrace && (
           <ThinkingTrace
+            variant={keepSettledTrace ? "tools" : "default"}
             status={searchStatus}
             steps={[...(narrations || []), ...(activeThinkingSteps || [])]}
             text={reasoning}
@@ -1529,8 +1544,8 @@ const ChatMessage = ({
           !isStreaming &&
           !showNarration &&
           keepSettledTrace &&
-          (!!thoughtsText || persistedThinkingSteps.length > 0) && (
-            <ThinkingTrace variant="tools" defaultOpen text={thoughtsText} steps={persistedThinkingSteps} />
+          (!!thoughtsText || settledTraceSteps.length > 0) && (
+            <ThinkingTrace variant="tools" text={thoughtsText} steps={settledTraceSteps} />
           )}
         {role === "assistant" && interrupted && !isStreaming && (
           <div className="mb-2 flex items-center gap-2 rounded-lg border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-xs text-amber-200">

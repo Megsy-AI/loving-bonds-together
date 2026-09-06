@@ -30,3 +30,4 @@
 - [x] Fix the RTL spacing override and pin the account group to the footer's far right
 - [x] Rebuild and verify mobile starter chips, the embedded Megsy Computer surface, and permanent tool traces
 - [x] Rebuild the mobile computer run as a dark single-column task view and verify it at 434px
+- [ ] Repair mobile starter-chip scrolling/actions, composer computer expansion, and permanent task traces
