@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import MegsyStar from "@/components/branding/MegsyStar";
 import { getPayRegionOrGuess, setPayRegion, type PayRegion } from "@/lib/payRegion";
 import { setUserLang } from "@/lib/authI18n";
-import welcomeWork from "@/assets/welcome-megsy-work.jpg";
+import welcomeExplore from "@/assets/welcome-explore.avif.asset.json";
 import welcomeCreate from "@/assets/welcome-megsy-create.jpg";
 import welcomePro from "@/assets/welcome-megsy-pro.jpg";
 import "@/styles/welcome-showcase.css";
@@ -13,18 +13,16 @@ type Direction = "next" | "prev";
 
 const SCREENS = [
   {
-    image: welcomeWork,
-    eyebrow: "MEGSY",
-    title: "اطلبها مرة. واترك الباقي لميغسي.",
-    description: "ينفّذ المهمة كاملة، من البحث والتخطيط إلى الملف النهائي الجاهز.",
-    alt: "ميغسي على مكتب إبداعي وحوله أعمال مكتملة",
+    image: welcomeExplore.url,
+    title: "Go from idea to done.",
+    description: "Megsy plans, creates, and delivers the finished work.",
+    alt: "Creative professional carrying work essentials through the sky",
   },
   {
     image: welcomeCreate,
-    eyebrow: "كل أدواتك في مكان واحد",
-    title: "فكرة واحدة. نتائج بكل الأشكال.",
-    description: "صور وفيديوهات ومواقع وتقارير—أنجزها مع أقوى نماذج الذكاء الاصطناعي.",
-    alt: "أعمال إبداعية متنوعة تدور حول نجمة ميغسي",
+    title: "Create in every format.",
+    description: "Images, videos, websites, and reports—all in one place.",
+    alt: "A collection of creative work arranged around the Megsy star",
   },
 ] as const;
 
@@ -96,14 +94,14 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
 
   return (
     <main
-      dir="rtl"
+      dir="ltr"
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       className={`fixed inset-0 isolate h-[100dvh] w-full overflow-hidden ${
         isPro ? "bg-[hsl(var(--welcome-night))]" : "bg-[hsl(var(--welcome-paper))]"
       }`}
     >
-      <h1 className="sr-only">مرحبًا بك في Megsy</h1>
+      <h1 className="sr-only">Welcome to Megsy</h1>
 
       <section
         key={index}
@@ -124,12 +122,12 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
           isPro ? "bg-[hsl(var(--welcome-night))]" : "bg-[hsl(var(--welcome-paper))]"
         }`}
       >
-        <div className="mb-4 flex justify-center gap-2" dir="ltr" aria-label={`الخطوة ${index + 1} من 3`}>
+        <div className="mb-3 flex justify-center gap-2" aria-label={`Step ${index + 1} of 3`}>
           {[0, 1, 2].map((step) => (
             <button
               key={step}
               type="button"
-              aria-label={`انتقل إلى الخطوة ${step + 1}`}
+              aria-label={`Go to step ${step + 1}`}
               aria-current={step === index ? "step" : undefined}
               onClick={() => goTo(step)}
               className="grid h-6 w-7 place-items-center"
@@ -156,8 +154,8 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
               : "bg-[hsl(var(--welcome-ink))] text-[hsl(var(--welcome-paper))] hover:bg-[hsl(var(--welcome-ink)/.9)]"
           }`}
         >
-          {isPro ? "امتلك الكنز الآن" : "استمر"}
-          {!isPro && <ArrowLeft className="size-5" />}
+          {isPro ? "Unlock Megsy Pro" : "Continue"}
+          {!isPro && <ArrowRight className="size-5" />}
         </Button>
 
         {isPro && (
@@ -167,7 +165,7 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
             onClick={finishWithoutOffer}
             className="mt-1 h-11 w-full text-sm text-[hsl(var(--welcome-gold-light)/.68)] hover:bg-transparent hover:text-[hsl(var(--welcome-gold-light))]"
           >
-            تخطي العرض
+            Not now
           </Button>
         )}
       </div>
@@ -177,11 +175,11 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
           type="button"
           variant="ghost"
           size="icon"
-          aria-label="رجوع"
+          aria-label="Back"
           onClick={() => goTo(index - 1)}
           className="absolute left-4 top-[calc(12px+env(safe-area-inset-top))] z-30 rounded-full text-[hsl(var(--welcome-ink))] hover:bg-[hsl(var(--welcome-ink)/.06)]"
         >
-          <ArrowRight className="size-5" />
+          <ArrowLeft className="size-5" />
         </Button>
       )}
     </main>
@@ -196,8 +194,8 @@ function IntroScreen({
   eager: boolean;
 }) {
   return (
-    <div className="mx-auto flex h-full w-full max-w-md flex-col pb-40 sm:max-w-lg">
-      <div className="relative h-[50dvh] min-h-[290px] max-h-[540px] w-full overflow-hidden">
+    <div className="mx-auto flex h-full w-full max-w-md flex-col pb-36 sm:max-w-lg">
+      <div className="relative h-[56dvh] min-h-[330px] max-h-[570px] w-full overflow-hidden">
         <img
           src={screen.image}
           alt={screen.alt}
@@ -205,20 +203,16 @@ function IntroScreen({
           height={1280}
           loading={eager ? "eager" : "lazy"}
           fetchPriority={eager ? "high" : "auto"}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
-      <div className="relative z-10 -mt-1 px-7 text-right">
-        <div className="mb-3 flex items-center justify-end gap-2 text-[hsl(var(--welcome-muted))]">
-          <MegsyStar className="h-3.5 w-3.5" />
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em]">{screen.eyebrow}</span>
-        </div>
-        <h2 className="text-[34px] font-extrabold leading-[1.08] text-[hsl(var(--welcome-ink))] sm:text-[40px]">
+      <div className="relative z-10 px-7 pt-5 text-left">
+        <h2 className="max-w-[330px] text-[38px] font-extrabold leading-[1.03] text-[hsl(var(--welcome-ink))] sm:text-[42px]">
           {screen.title}
         </h2>
-        <p className="mt-4 max-w-sm text-[15px] font-medium leading-7 text-[hsl(var(--welcome-muted))]">
+        <p className="mt-4 max-w-[320px] text-[16px] font-medium leading-6 text-[hsl(var(--welcome-muted))]">
           {screen.description}
         </p>
       </div>
@@ -232,7 +226,7 @@ function ProScreen() {
       <div className="relative h-[50dvh] min-h-[300px] max-h-[540px] w-full overflow-hidden">
         <img
           src={welcomePro}
-          alt="صندوق أسود مفتوح مليء بنجوم Megsy الذهبية"
+          alt="An open black treasure box filled with golden Megsy stars"
           width={1024}
           height={1280}
           loading="eager"
@@ -261,14 +255,14 @@ function ProScreen() {
       <div className="-mt-4 px-7 text-center">
         <div className="mb-3 flex items-center justify-center gap-2 text-[hsl(var(--welcome-gold-light)/.75)]">
           <MegsyStar className="h-3.5 w-3.5" />
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em]">افتح كل شيء</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.16em]">UNLOCK EVERYTHING</span>
         </div>
         <h2 className="welcome-pro-title relative inline-block overflow-hidden text-[42px] font-black leading-none sm:text-[48px]">
           Megsy Pro
         </h2>
-        <h3 className="mt-3 text-[27px] font-extrabold text-[hsl(var(--welcome-paper))]">كنزك الذهبي</h3>
+        <h3 className="mt-3 text-[27px] font-extrabold text-[hsl(var(--welcome-paper))]">Your creative treasure</h3>
         <p className="mx-auto mt-3 max-w-sm text-[14px] font-medium leading-7 text-[hsl(var(--welcome-paper)/.62)]">
-          نماذج أقوى، كمبيوتر Megsy، وإنجازات أكبر بلا حدود يومية.
+          More powerful models, Megsy Computer, and bigger creations without daily limits.
         </p>
       </div>
     </div>
