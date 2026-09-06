@@ -21,9 +21,7 @@ export function ComposerComputerProvider({ children }: { children: ReactNode }) 
 export function useComposerComputer() {
   const ctx = useContext(ComposerComputerContext);
   if (!ctx) {
-    // Safe fallback when the composer is rendered outside the provider
-    // (e.g. landing page previews).
-    return { open: false, setOpen: () => {}, toggle: () => {} };
+    throw new Error("useComposerComputer must be used within ComposerComputerProvider");
   }
   return ctx;
 }
