@@ -34,14 +34,11 @@ export interface ThinkingTraceProps {
 
 const RTL_LANGS = new Set(["ar", "ar-eg", "fa", "he"]);
 
-const iconForLine = (line: string, fallback: string | null | undefined) => {
-  const value = line.toLowerCase();
-  if (/browser|web|site|page|متصفح|موقع|صفحة/.test(value)) return "browser";
-  if (/file|folder|document|ملف|مجلد|مستند/.test(value)) return "file";
-  if (/code|build|terminal|command|كود|برمج|طرفية|أمر/.test(value)) return "code";
-  if (/search|research|بحث/.test(value)) return "search";
-  return fallback || "wrench";
-};
+/**
+ * Icons are never guessed from the wording of a step. A tool icon appears only
+ * for the step that is really running a known tool; every other step keeps a
+ * neutral dot marker, so the timeline stays visually stable.
+ */
 
 
 /**
