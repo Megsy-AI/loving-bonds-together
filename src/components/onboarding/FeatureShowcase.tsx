@@ -55,12 +55,53 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
     };
   }, [isPro]);
 
-  const goTo = (target: number) => {
-    const nextIndex = Math.max(0, Math.min(2, target));
-    if (nextIndex === index) return;
-    setDirection(nextIndex > index ? "next" : "prev");
-    setIndex(nextIndex);
-  };
+  const goTo = useCallback((target: number) => {
+    setIndex((current) => {
+      const nextIndex = Math.max(0, Math.min(2, target));
+      if (nextIndex === current) return current;
+      setDirection(nextIndex > current ? "next" : "prev");
+      return nextIndex;
+    });
+  }, []);
+
+  // Slide 2 pre-warms the sign-up screen: its code chunk, hero video and poster.
+  useEffect(() => {
+    if (index !== 1) return;
+    void import("@/pages/auth/AuthPage").catch(() => {});
+    const poster = new Image();
+    poster.src = AUTH_HERO_POSTER;
+    const video = document.createElement("video");
+    video.preload = "auto";
+    video.muted = true;
+    video.src = AUTH_HERO_WEBM;
+    video.load();
+    const mp4 = document.createElement("video");
+    mp4.preload = "auto";
+    mp4.muted = true;
+    mp4.src = AUTH_HERO_MP4;
+    mp4.load();
+    return () => {
+      video.removeAttribute("src");
+      mp4.removeAttribute("src");
+    };
+  }, [index]);
+
+  // Horizontal scroll (trackpad / mouse wheel) moves between slides.
+  useEffect(() => {
+    let locked = false;
+    const onWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaX) < 24 || Math.abs(event.deltaX) < Math.abs(event.deltaY)) return;
+      event.preventDefault();
+      if (locked) return;
+      locked = true;
+      window.setTimeout(() => {
+        locked = false;
+      }, 450);
+      goTo(index + (event.deltaX > 0 ? 1 : -1));
+    };
+    window.addEventListener("wheel", onWheel, { passive: false });
+    return () => window.removeEventListener("wheel", onWheel);
+  }, [goTo, index]);
 
   const continueFlow = () => {
     if (isPro) {
