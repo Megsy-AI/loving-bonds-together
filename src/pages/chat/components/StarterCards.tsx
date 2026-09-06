@@ -1,6 +1,7 @@
 // Starter cards — horizontally scrollable suggestion chips shown above the
-// composer on a fresh chat. Tapping a card focuses the input (and switches
-// chat mode for the service-specific ones).
+// composer on a fresh chat. Tapping a chip switches chat mode for the
+// service-specific ones. `StarterCards` is the mobile scroll row,
+// `StarterChips` the desktop inline row.
 import { memo } from "react";
 import {
   Globe,
@@ -8,10 +9,9 @@ import {
   Video,
   Presentation,
   Search,
-  ArrowUp,
   type LucideIcon,
 } from "lucide-react";
-import { useTranslation } from "@/i18n";
+import { useUserLang } from "@/lib/authI18n";
 import type { ChatMode } from "../chatConstants";
 
 interface StarterCardDef {
@@ -30,90 +30,56 @@ const CARDS: StarterCardDef[] = [
 ];
 
 interface StarterCardsProps {
-  isArabicUi: boolean;
-  activeMode?: string | null;
-  onChipPress: (label: string, mode?: ChatMode) => void;
-  onSubmit?: (label: string, mode?: ChatMode) => void;
+  className?: string;
+  onPick: (prompt: string, mode?: ChatMode) => void;
 }
+
+const chipClass =
+  "group flex h-9 shrink-0 items-center gap-2 rounded-xl border border-foreground/[0.09] bg-background px-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 hover:border-foreground/[0.18] active:scale-[0.97]";
 
 const Card = memo(function Card({
   icon: Icon,
   label,
-  active,
   onClick,
-  arrow,
 }: {
   icon: LucideIcon;
   label: string;
-  active?: boolean;
   onClick: () => void;
-  arrow?: boolean;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={[
-        "group flex h-9 shrink-0 items-center gap-2 rounded-xl border px-3.5 transition-all duration-200 active:scale-[0.97]",
-        active
-          ? "border-foreground bg-foreground text-background"
-          : "border-foreground/[0.09] bg-background shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:border-foreground/[0.18]",
-      ].join(" ")}
-      aria-pressed={active}
-    >
-      <Icon
-        className={`h-4 w-4 shrink-0 ${active ? "text-background" : "text-foreground/55"}`}
-        strokeWidth={1.8}
-      />
-      <span
-        className={`text-[13px] font-medium leading-none ${
-          active ? "text-background" : "text-foreground/80"
-        }`}
-      >
+    <button type="button" onClick={onClick} className={chipClass}>
+      <Icon className="h-4 w-4 shrink-0 text-foreground/55" strokeWidth={1.8} />
+      <span className="text-[13px] font-medium leading-none text-foreground/80">
         {label}
       </span>
-      {arrow && active && (
-        <ArrowUp
-          className="h-3 w-3 shrink-0 text-background/80"
-          strokeWidth={2.2}
-        />
-      )}
     </button>
   );
 });
 
-export const StarterCards = memo(function StarterCards({
-  isArabicUi,
-  activeMode,
-  onChipPress,
-  onSubmit,
+const StarterCards = memo(function StarterCards({
+  className,
+  onPick,
 }: StarterCardsProps) {
-  const { t } = useTranslation();
-  const isAr = isArabicUi;
-  const selected = CARDS.find((c) => c.mode && c.mode === activeMode);
-  const selectedLabel = selected ? (isAr ? selected.ar : selected.en) : null;
+  const lang = useUserLang();
+  const isAr = lang === "ar-eg";
 
   return (
-    <div className="relative w-full" dir={isAr ? "rtl" : "ltr"}>
+    <div
+      className={`relative w-full ${className ?? ""}`}
+      dir={isAr ? "rtl" : "ltr"}
+    >
       <div
         className="flex items-center gap-2 overflow-x-auto no-scrollbar ps-3 pe-8 py-1"
         data-starter-chips-scroll
       >
         {CARDS.map((card) => {
           const label = isAr ? card.ar : card.en;
-          const isActive = !!card.mode && card.mode === activeMode;
           return (
             <Card
               key={card.en}
               icon={card.icon}
               label={label}
-              active={isActive}
-              arrow={!!onSubmit}
-              onClick={() =>
-                isActive && onSubmit
-                  ? onSubmit(label, card.mode)
-                  : onChipPress(label, card.mode)
-              }
+              onClick={() => onPick(label, card.mode)}
             />
           );
         })}
@@ -121,20 +87,38 @@ export const StarterCards = memo(function StarterCards({
       <div
         aria-hidden
         className={`pointer-events-none absolute inset-y-0 w-10 ${
-          isAr
-            ? "left-0 bg-gradient-to-r"
-            : "right-0 bg-gradient-to-l"
+          isAr ? "left-0 bg-gradient-to-r" : "right-0 bg-gradient-to-l"
         } from-background to-transparent`}
       />
     </div>
   );
 });
 
-export const selectedModeTitle = (
-  chatMode: string | null | undefined,
-  isArabicUi: boolean,
-): string | null => {
-  const found = CARDS.find((c) => c.mode === chatMode);
-  if (!found) return null;
-  return isArabicUi ? found.ar : found.en;
-};
+export const StarterChips = memo(function StarterChips({
+  className,
+  onPick,
+}: StarterCardsProps) {
+  const lang = useUserLang();
+  const isAr = lang === "ar-eg";
+
+  return (
+    <div
+      className={`flex flex-wrap items-center justify-center gap-2 ${className ?? ""}`}
+      dir={isAr ? "rtl" : "ltr"}
+    >
+      {CARDS.map((card) => {
+        const label = isAr ? card.ar : card.en;
+        return (
+          <Card
+            key={card.en}
+            icon={card.icon}
+            label={label}
+            onClick={() => onPick(label, card.mode)}
+          />
+        );
+      })}
+    </div>
+  );
+});
+
+export default StarterCards;
