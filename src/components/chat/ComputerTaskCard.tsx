@@ -116,17 +116,34 @@ export default function ComputerTaskCard({ taskId }: Props) {
   }
 
   if (timedOut || task?.status === "failed") {
+    const reason =
+      (timedOut ? "المهمة استغرقت وقتًا أطول من المتوقع وتم إيقافها." : "") ||
+      computerErrorMessage(task?.error) ||
+      (task?.result_text || "").trim() ||
+      "المهمة على الكمبيوتر اتوقفت قبل ما تخلص. جرّب تبعتها تاني بصيغة أوضح.";
     return (
       <div className="my-4 space-y-4">
-        <ThinkingTrace variant="tools" steps={traceSteps} text={traceText} tool="browser" />
-        <p className="text-[13px] leading-relaxed text-destructive">
-          {timedOut ? "المهمة استغرقت وقتًا أطول من المتوقع وتم إيقافها." : computerErrorMessage(task.error)}
+        {traceSteps.length > 0 && (
+          <ThinkingTrace variant="tools" steps={traceSteps} text={traceText} tool="browser" />
+        )}
+        <p className="text-[13px] leading-relaxed text-destructive">{reason}</p>
+      </div>
+    );
+  }
+
+  if (!task?.result_text && files.length === 0) {
+    return (
+      <div className="my-4 space-y-4">
+        {traceSteps.length > 0 && (
+          <ThinkingTrace variant="tools" steps={traceSteps} text={traceText} tool="browser" />
+        )}
+        <p className="text-[13px] leading-relaxed text-muted-foreground">
+          المهمة خلصت من غير نتيجة مكتوبة.
         </p>
       </div>
     );
   }
 
-  if (!task?.result_text && files.length === 0) return null;
 
   return (
     <div className="my-4 space-y-4">
