@@ -228,7 +228,7 @@ function ProScreen() {
       <div className="relative h-[56dvh] min-h-[330px] max-h-[570px] w-full overflow-hidden">
         <img
           src={welcomePro}
-          alt="Woman holding a subscription card toward the camera"
+          alt="Woman holding a Megsy Pro card toward the camera"
           width={1024}
           height={1280}
           loading="eager"
