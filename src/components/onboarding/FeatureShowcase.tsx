@@ -193,46 +193,26 @@ function IntroScreen({
 
 function ProScreen() {
   return (
-    <div className="relative mx-auto flex h-full w-full max-w-md flex-col pb-48 sm:max-w-lg">
-      <div className="relative h-[40dvh] min-h-[275px] max-h-[410px] w-full shrink-0 overflow-hidden">
+    <div className="mx-auto flex h-full w-full max-w-md flex-col pb-36 sm:max-w-lg">
+      <div className="relative h-[56dvh] min-h-[330px] max-h-[570px] w-full overflow-hidden">
         <img
           src={welcomePro}
-          alt="Korean woman holding a Megsy subscription card"
+          alt="Woman holding a subscription card toward the camera"
           width={1024}
           height={1280}
           loading="eager"
-          className="h-full w-full object-cover"
+          fetchPriority="high"
+          className="h-full w-full object-cover object-center"
         />
-        <div
-          dir="rtl"
-          aria-hidden="true"
-          className="absolute left-1/2 top-[60%] -translate-x-1/2 -rotate-[2deg] whitespace-nowrap text-[23px] font-black text-[hsl(var(--welcome-ink))]"
-        >
-          اشتراك ميغسي
-        </div>
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[hsl(var(--welcome-paper))] to-transparent" />
       </div>
 
-      <div className="relative z-10 -mt-2 px-6 text-left">
-        <h2 className="text-[31px] font-extrabold leading-[1.04] text-[hsl(var(--welcome-ink))] sm:text-[38px]">
+      <div className="relative z-10 px-7 pt-5 text-left">
+        <h2 className="max-w-[330px] text-[38px] font-extrabold leading-[1.03] text-[hsl(var(--welcome-ink))] sm:text-[42px]">
           Unlock more.
         </h2>
-        <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2" aria-label="Megsy Pro benefits">
-          {["Advanced AI models", "4-hour computer tasks", "Unlimited AI images", "More video creation", "Unlimited research", "Apps & websites"].map((feature) => (
-            <div key={feature} className="flex min-w-0 items-center gap-2 text-[13px] font-bold text-[hsl(var(--welcome-ink))]">
-              <span className="grid size-4 shrink-0 place-items-center rounded-full bg-[hsl(var(--welcome-ink)/.07)]">
-                <Check className="size-2.5" strokeWidth={2.5} />
-              </span>
-              <span className="truncate">{feature}</span>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 flex items-end gap-2 text-[hsl(var(--welcome-ink))]">
-          <strong className="text-[30px] leading-none">$7</strong>
-          <span className="pb-0.5 text-sm font-bold">for your first month</span>
-        </div>
-        <p className="mt-1 text-[11px] font-medium text-[hsl(var(--welcome-muted))]">
-          Then $20/month. Cancel anytime.
+        <p className="mt-4 max-w-[330px] text-[16px] font-medium leading-6 text-[hsl(var(--welcome-muted))]">
+          More powerful models, longer tasks, and bigger creations with Megsy Pro.
         </p>
       </div>
     </div>
