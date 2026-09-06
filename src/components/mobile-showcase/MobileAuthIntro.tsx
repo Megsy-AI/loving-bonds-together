@@ -4,8 +4,8 @@ import { AlertCircle, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { useBrandLogo } from "@/hooks/useBrandLogo";
 import { t as authT, useUserLang } from "@/lib/authI18n";
 
-const AUTH_HERO_MP4 = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260330_153826_e9005cf7-a1c7-4c7d-886f-fea22d644a9c.mp4";
-const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v3-poster.jpg";
+const AUTH_HERO_MP4 = "/route-assets/auth/auth-hero-v4.mp4";
+const AUTH_HERO_POSTER = "/route-assets/auth/auth-hero-v4-poster.jpg";
 interface Props {
   onGoogle: () => void;
   onEmail: () => void;
