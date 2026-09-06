@@ -139,7 +139,7 @@ export default function MobileAuthIntro({
             fontSize: "52px",
             lineHeight: "0.88",
             letterSpacing: "-0.06em",
-            textShadow: "0 1px 2px rgba(0,0,0,.4)",
+            textShadow: "0 1px 3px rgba(0,0,0,.55)",
           }}
         >
           <span className="block">{t.title1}</span>
