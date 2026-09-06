@@ -131,8 +131,7 @@ export default function FeatureShowcase({ onFinish }: { onFinish?: () => void })
           variant="ghost"
           data-plain
           onClick={continueFlow}
-          style={{ color: "hsl(var(--welcome-paper))" }}
-          className="h-14 w-full rounded-md bg-[hsl(var(--welcome-ink))] text-base font-bold shadow-none hover:bg-[hsl(var(--welcome-ink)/.9)]"
+          className="h-14 w-full rounded-md bg-[hsl(var(--welcome-ink))] text-base font-bold !text-[hsl(var(--welcome-paper))] shadow-none hover:bg-[hsl(var(--welcome-ink)/.9)]"
         >
           {isPro ? "Unlock Megsy Pro" : "Continue"}
           {!isPro && <ArrowRight className="size-5" />}
