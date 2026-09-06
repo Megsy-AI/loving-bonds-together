@@ -983,7 +983,20 @@ export default defineConfig({
 
     // Heavy, rarely used viewers stay out of the pre-bundle (they would make
     // dev boot crawl); they are loaded once behind explicit user actions.
-    exclude: ["msw", "@mswjs/interceptors"],
+    exclude: [
+      "msw",
+      "@mswjs/interceptors",
+      "mermaid",
+      "pdfjs-dist",
+      "xlsx",
+      "jspdf",
+      "html2canvas",
+      "mammoth",
+      "pptxgenjs",
+      "pptx-preview",
+      "@imgly/background-removal",
+      "@monaco-editor/react",
+    ],
   },
 
   server: {
