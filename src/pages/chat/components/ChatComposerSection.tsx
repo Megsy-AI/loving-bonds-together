@@ -10,6 +10,7 @@ import { prewarmSendPath } from "../lib/prewarmSendPath";
 import ComposerServicePanel from "./ComposerServicePanel";
 import StarterCards, { StarterChips } from "./StarterCards";
 import ComposerComputerDock from "@/components/chat/ComposerComputerDock";
+import { ComposerComputerProvider } from "@/components/chat/ComposerComputerContext";
 
 import type { AttachedFile } from "../hooks/useAttachments";
 
@@ -108,6 +109,7 @@ export function ChatComposerSection(props: ChatComposerSectionProps) {
 
 
   return (
+    <ComposerComputerProvider>
     <div
       style={{
         ["--sb-left" as any]: (sidebarOffset ?? (sidebarCollapsed ? 56 : 260)) + "px",
@@ -235,6 +237,7 @@ export function ChatComposerSection(props: ChatComposerSectionProps) {
         </div>
       </div>
     </div>
+    </ComposerComputerProvider>
   );
 
 }
