@@ -953,11 +953,22 @@ export default defineConfig({
     include: [
       "use-sync-external-store/shim/with-selector",
       "lucide-react",
-      "date-fns",
-      "date-fns/locale",
       "clsx",
       "tailwind-merge",
       "class-variance-authority",
+      // Anything imported lazily at runtime must be pre-bundled here. When Vite
+      // discovers a brand-new dependency mid-session it re-runs the optimizer
+      // and forces a FULL PAGE RELOAD — which is what made the app refresh
+      // itself over and over while sending a message or signing up.
+      "sonner",
+      "framer-motion",
+      "@sentry/react",
+      "rehype-katex",
+      ...[
+        "bash","c","cpp","csharp","css","dart","diff","docker","go","graphql","ini","java",
+        "javascript","json","jsx","kotlin","markdown","markup","php","python","ruby","rust",
+        "scss","sql","swift","toml","tsx","typescript","yaml",
+      ].map((n) => `react-syntax-highlighter/dist/esm/languages/prism/${n}`),
       // Brand icons are dynamically imported per-brand (BrandIcon.tsx). Without
       // pre-bundling, the first render of a new brand triggers a mid-session
       // dep re-optimize, which invalidates already-loaded chunk URLs and makes
@@ -970,8 +981,22 @@ export default defineConfig({
       ].map((n) => `@lobehub/icons/es/${n}`),
     ],
 
-
-    exclude: ["msw", "@mswjs/interceptors"],
+    // Heavy, rarely used viewers stay out of the pre-bundle (they would make
+    // dev boot crawl); they are loaded once behind explicit user actions.
+    exclude: [
+      "msw",
+      "@mswjs/interceptors",
+      "mermaid",
+      "pdfjs-dist",
+      "xlsx",
+      "jspdf",
+      "html2canvas",
+      "mammoth",
+      "pptxgenjs",
+      "pptx-preview",
+      "@imgly/background-removal",
+      "@monaco-editor/react",
+    ],
   },
 
   server: {
